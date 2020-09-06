@@ -33,7 +33,7 @@ public class Answer {
         this.localDate = localDate;
         this.rating = rating;
     }
-    public Answer() {
+    protected Answer() {
     }
 
     public Long getId() {

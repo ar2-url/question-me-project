@@ -26,7 +26,7 @@ public class Question {
         this.category = category;
     }
 
-    public Question() {
+    protected Question() {
     }
 
     public Long getId() {

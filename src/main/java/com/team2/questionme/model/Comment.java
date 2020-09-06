@@ -32,7 +32,7 @@ public class Comment {
         this.localDate = localDate;
     }
 
-    public Comment() {
+    protected Comment() {
     }
 
     public Long getId() {
