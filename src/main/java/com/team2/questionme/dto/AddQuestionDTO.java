@@ -1,19 +1,19 @@
 package com.team2.questionme.dto;
 
 public class AddQuestionDTO {
-    private String contents;
+    private String content;
     private String category;
 
 
     public AddQuestionDTO() {
     }
 
-    public String getContents() {
-        return contents;
+    public String getContent() {
+        return content;
     }
 
-    public void setContents(String contents) {
-        this.contents = contents;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getCategory() {
