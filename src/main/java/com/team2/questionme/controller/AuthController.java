@@ -1,9 +1,12 @@
 package com.team2.questionme.controller;
 
 import com.team2.questionme.dto.AuthenticationRequest;
+import com.team2.questionme.dto.RegisterNewUserDTO;
 import com.team2.questionme.repository.UserRepository;
 import com.team2.questionme.security.JwtTokenProvider;
+import com.team2.questionme.service.RegisterUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -29,6 +32,9 @@ public class AuthController {
     JwtTokenProvider jwtTokenProvider;
     @Autowired
     UserRepository users;
+    @Autowired
+    RegisterUserService registerUserService;
+
 
     @PostMapping("/signin")
     public ResponseEntity signin(@RequestBody AuthenticationRequest data) {
@@ -43,5 +49,10 @@ public class AuthController {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
+    }
+    @PostMapping("/register")
+    public ResponseEntity register(@RequestBody RegisterNewUserDTO registerNewUserDTO){
+        registerUserService.registerNewUser(registerNewUserDTO);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }
