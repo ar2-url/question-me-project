@@ -1,10 +1,8 @@
 package com.team2.questionme.service;
 
 import com.team2.questionme.dto.AddCommentDTO;
-import com.team2.questionme.dto.AddQuestionDTO;
 import com.team2.questionme.model.Answer;
 import com.team2.questionme.model.Comment;
-import com.team2.questionme.model.Question;
 import com.team2.questionme.model.User;
 import com.team2.questionme.repository.AnswerRepository;
 import com.team2.questionme.repository.CommentRepository;
@@ -32,7 +30,8 @@ public class CommentService {
         User testUser = new User("TestName","TestPassword","test@com","test Display Name");
         userRepository.save(testUser);
 
-//        Answer answer = answerRepository //
-//        Comment comment = new Comment()
+        Answer answer = answerRepository.getOne(answerId);
+        Comment comment = new Comment(6L,answer,testUser,addCommentDTO.getContent(),LocalDate.now() );
+        commentRepository.save(comment);
     }
 }
