@@ -23,7 +23,7 @@ public class Question {
         this.user = user;
         this.contents = text;
         this.localDate = localDate;
-        this.category = category;
+        this.category = category.toLowerCase();
     }
 
     protected Question() {
