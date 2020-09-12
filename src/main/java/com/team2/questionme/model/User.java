@@ -19,8 +19,13 @@ public class User implements UserDetails {
 
     @Column(unique = true)
     private String name;
+
     private String password;
+
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
     private String displayName;
 
     @Autowired
