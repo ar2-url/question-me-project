@@ -111,7 +111,7 @@ public class User implements UserDetails {
         return displayName;
     }
 
-    public void setDisplay_name(@NonNull String display_name) {
+    public void setDisplayName(@NonNull String displayName) {
         this.displayName = displayName;
     }
 
