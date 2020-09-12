@@ -25,8 +25,7 @@ public class Answer {
     private Long rating;
 
     @Autowired
-    public Answer(Long id, User user, Question question, String contents, LocalDate localDate) {
-        Id = id;
+    public Answer(User user, Question question, String contents, LocalDate localDate) {
         this.user = user;
         this.question = question;
         this.contents = contents;

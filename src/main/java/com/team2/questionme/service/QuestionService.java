@@ -28,5 +28,6 @@ public class QuestionService {
         User user = userRepository.findByName(userDetails.getUsername()).get();
         Question question = new Question(user,addQuestionDTO.getContent(),LocalDate.now(),addQuestionDTO.getCategory());
         questionRepository.save(question);
+
     }
 }
