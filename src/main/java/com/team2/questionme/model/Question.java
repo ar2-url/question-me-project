@@ -19,10 +19,10 @@ public class Question {
     private String category;
 
     @Autowired
-    public Question(User user, String text, LocalDate localDate, String category) {
+    public Question(User user, String text, String category) {
         this.user = user;
         this.contents = text;
-        this.localDate = localDate;
+        this.localDate = LocalDate.now();
         this.category = category.trim().toLowerCase();
     }
 

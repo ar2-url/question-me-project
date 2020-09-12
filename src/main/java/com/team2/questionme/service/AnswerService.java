@@ -10,6 +10,7 @@ import com.team2.questionme.repository.AnswerRepository;
 import com.team2.questionme.repository.QuestionRepository;
 import com.team2.questionme.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,11 +28,10 @@ public class AnswerService {
         this.answerRepository = answerRepository;
         this.userRepository = userRepository;
     }
-    public void addAnswer(AddAnswerDTO addAnswerDTO, Long questionId) {
-        User testUser = new User("TestName","TestPassword","test@com","test Display Name");
-        userRepository.save(testUser);
+    public void addAnswer(AddAnswerDTO addAnswerDTO, Long questionId, UserDetails userDetails) {
+        User user = userRepository.findByName(userDetails.getUsername()).get();
         Question question = questionRepository.getOne(questionId);
-        Answer answer = new Answer(testUser, question, addAnswerDTO.getContent(), LocalDate.now());
+        Answer answer = new Answer(user, question, addAnswerDTO.getContent());
         answerRepository.save(answer);
     }
 }

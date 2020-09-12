@@ -24,12 +24,11 @@ public class Comment {
     private LocalDate localDate;
 
     @Autowired
-    public Comment(Long id, Answer answer, User user, String contents, LocalDate localDate) {
-        Id = id;
+    public Comment(Answer answer, User user, String contents) {
         this.answer = answer;
         this.user = user;
         this.contents = contents;
-        this.localDate = localDate;
+        this.localDate = LocalDate.now();
     }
 
     protected Comment() {

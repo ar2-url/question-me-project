@@ -27,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService, RegisterUse
 
     @Override
     public void registerNewUser(RegisterNewUserDTO registerNewUserDTO) {
-        User user = new User(registerNewUserDTO.getName(),registerNewUserDTO.getPassword(),registerNewUserDTO.getEmail(),registerNewUserDTO.getDisplay_name());
+        User user = new User(registerNewUserDTO.getName(),registerNewUserDTO.getPassword(),registerNewUserDTO.getEmail(),registerNewUserDTO.getDisplayName());
         users.save(user);
     }
 }

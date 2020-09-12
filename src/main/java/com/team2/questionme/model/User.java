@@ -21,14 +21,14 @@ public class User implements UserDetails {
     private String name;
     private String password;
     private String email;
-    private String display_name;
+    private String displayName;
 
     @Autowired
-    public User(String name,String password,String email,String display_name) {
+    public User(String name,String password,String email,String displayName) {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.display_name = display_name;
+        this.displayName = displayName;
     }
 
     protected User() {
@@ -102,12 +102,12 @@ public class User implements UserDetails {
     }
 
     @NonNull
-    public String getDisplay_name() {
-        return display_name;
+    public String getDisplayName() {
+        return displayName;
     }
 
     public void setDisplay_name(@NonNull String display_name) {
-        this.display_name = display_name;
+        this.displayName = displayName;
     }
 
     public List<String> getRoles() {

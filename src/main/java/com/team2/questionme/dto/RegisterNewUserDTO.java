@@ -4,7 +4,7 @@ public class RegisterNewUserDTO {
     private String name;
     private String password;
     private String email;
-    private String display_name;
+    private String displayName;
 
     public String getName() {
         return name;
@@ -30,11 +30,11 @@ public class RegisterNewUserDTO {
         this.email = email;
     }
 
-    public String getDisplay_name() {
-        return display_name;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setDisplay_name(String display_name) {
-        this.display_name = display_name;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

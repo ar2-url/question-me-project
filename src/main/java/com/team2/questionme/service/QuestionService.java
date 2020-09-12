@@ -26,7 +26,7 @@ public class QuestionService {
 
     public void addQuestion(AddQuestionDTO addQuestionDTO, UserDetails userDetails){
         User user = userRepository.findByName(userDetails.getUsername()).get();
-        Question question = new Question(user,addQuestionDTO.getContent(),LocalDate.now(),addQuestionDTO.getCategory());
+        Question question = new Question(user,addQuestionDTO.getContent(),addQuestionDTO.getCategory());
         questionRepository.save(question);
 
     }
