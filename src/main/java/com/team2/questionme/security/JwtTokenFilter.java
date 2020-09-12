@@ -1,5 +1,6 @@
 package com.team2.questionme.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -12,7 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public class JwtTokenFilter extends GenericFilterBean {
+
     private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
     }

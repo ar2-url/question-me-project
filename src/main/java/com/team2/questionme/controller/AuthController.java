@@ -26,15 +26,19 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    @Autowired
-    AuthenticationManager authenticationManager;
-    @Autowired
-    JwtTokenProvider jwtTokenProvider;
-    @Autowired
-    UserRepository users;
-    @Autowired
-    RegisterUserService registerUserService;
 
+    private AuthenticationManager authenticationManager;
+    private JwtTokenProvider jwtTokenProvider;
+    private UserRepository users;
+    private RegisterUserService registerUserService;
+
+    @Autowired
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserRepository users, RegisterUserService registerUserService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.users = users;
+        this.registerUserService = registerUserService;
+    }
 
     @PostMapping("/signin")
     public ResponseEntity signin(@RequestBody AuthenticationRequest data) {
