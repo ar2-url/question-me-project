@@ -1,7 +1,7 @@
 package com.team2.questionme.dto;
 
 public class AddAnswerDTO {
-    //czy sam content wystarczy czy trzeba obiekt question
+
     private String content;
 
     public AddAnswerDTO() {

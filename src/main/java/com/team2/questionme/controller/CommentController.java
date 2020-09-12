@@ -21,7 +21,7 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @PostMapping("{questionId}/answers/{answerId}")
+    @PostMapping("{questionId}/answers/{answerId}/comments")
     public ResponseEntity addComment(
             @RequestBody AddCommentDTO addCommentDTO,
             @PathVariable Long questionId,
