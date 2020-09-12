@@ -8,6 +8,8 @@ import com.team2.questionme.repository.AnswerRepository;
 import com.team2.questionme.repository.CommentRepository;
 import com.team2.questionme.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,12 +28,10 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    public void addComment(AddCommentDTO addCommentDTO, Long answerId) {
-        User testUser = new User("TestName","TestPassword","test@com","test Display Name");
-        userRepository.save(testUser);
-
+    public void addComment(AddCommentDTO addCommentDTO, Long answerId, UserDetails userDetails) {
+        User user = userRepository.findByName(userDetails.getUsername()).get();
         Answer answer = answerRepository.getOne(answerId);
-        Comment comment = new Comment(6L,answer,testUser,addCommentDTO.getContent(),LocalDate.now() );
+        Comment comment = new Comment(answer,user,addCommentDTO.getContent());
         commentRepository.save(comment);
     }
 }

@@ -1,7 +1,7 @@
 package com.team2.questionme.dto;
 
 public class AddCommentDTO {
-    // czy tutaj rating ma byc??
+
     private String content;
 
     public AddCommentDTO() {

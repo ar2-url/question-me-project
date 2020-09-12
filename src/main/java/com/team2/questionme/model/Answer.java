@@ -25,11 +25,11 @@ public class Answer {
     private Long rating;
 
     @Autowired
-    public Answer(User user, Question question, String contents, LocalDate localDate) {
+    public Answer(User user, Question question, String contents) {
         this.user = user;
         this.question = question;
         this.contents = contents;
-        this.localDate = localDate;
+        this.localDate = LocalDate.now();
         this.rating = 0L;
     }
     protected Answer() {
