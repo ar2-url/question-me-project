@@ -1,8 +1,9 @@
 package com.team2.questionme.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
-public class QuestionDTO {
+public class QuestionWithAnswersAndCommentsDTO {
 
     private Long id;
     private String contents;
@@ -10,12 +11,15 @@ public class QuestionDTO {
     private String category;
     private UserDTO asker;
 
-    public QuestionDTO(Long id, String contents, LocalDate localDate, String category, Long askerId, String askerName) {
+    private List<AnswersWithCommentsDTO> answers;
+
+    public QuestionWithAnswersAndCommentsDTO(Long id, String contents, LocalDate localDate, String category, UserDTO asker, List<AnswersWithCommentsDTO> answers) {
         this.id = id;
         this.contents = contents;
         this.localDate = localDate;
         this.category = category;
-        this.asker = new UserDTO(askerId, askerName);
+        this.asker = asker;
+        this.answers = answers;
     }
 
     public Long getId() {
@@ -56,5 +60,13 @@ public class QuestionDTO {
 
     public void setAsker(UserDTO asker) {
         this.asker = asker;
+    }
+
+    public List<AnswersWithCommentsDTO> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<AnswersWithCommentsDTO> answers) {
+        this.answers = answers;
     }
 }

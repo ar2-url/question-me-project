@@ -1,16 +1,14 @@
 package com.team2.questionme.controller;
 
 import com.team2.questionme.dto.AddQuestionDTO;
+import com.team2.questionme.dto.QuestionWithAnswersAndCommentsDTO;
 import com.team2.questionme.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/questions")
@@ -26,11 +24,16 @@ public class QuestionController {
     @PostMapping
     public ResponseEntity addQuestion(
             @RequestBody AddQuestionDTO addQuestionDTO,
-            @AuthenticationPrincipal UserDetails userDetails
-    ){
+            @AuthenticationPrincipal UserDetails userDetails)
+    {
         questionService.addQuestion(addQuestionDTO, userDetails);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-
+    @GetMapping("{questionId}")
+    public ResponseEntity<QuestionWithAnswersAndCommentsDTO> fullQuestion(
+            @PathVariable Long questionId)
+    {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

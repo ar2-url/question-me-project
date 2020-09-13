@@ -1,10 +1,10 @@
 package com.team2.questionme.dto;
 
-public class AskerDTO {
+public class UserDTO {
     private Long id;
     private String name;
 
-    public AskerDTO(Long id, String name) {
+    public UserDTO(Long id, String name) {
         this.id = id;
         this.name = name;
     }
