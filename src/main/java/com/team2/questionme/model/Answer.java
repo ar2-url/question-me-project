@@ -2,11 +2,10 @@ package com.team2.questionme.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Answer {
@@ -20,6 +19,8 @@ public class Answer {
     private String contents;
     private LocalDate localDate;
     private Long rating;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
     @Autowired
     public Answer(User user, String contents) {
@@ -27,6 +28,7 @@ public class Answer {
         this.contents = contents;
         this.localDate = LocalDate.now();
         this.rating = 0L;
+        this.comments = new ArrayList<>();
     }
     protected Answer() {
     }
@@ -69,5 +71,17 @@ public class Answer {
 
     public void setRating(Long rating) {
         this.rating = rating;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
     }
 }

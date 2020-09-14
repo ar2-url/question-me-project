@@ -15,5 +15,5 @@ public interface AnswersWithCommentsDTO {
 
     public Long getRating();
 
-//    public List<CommentsDTO> getCommentsDTO();
+    public List<CommentsDTO> getComments();
 }
