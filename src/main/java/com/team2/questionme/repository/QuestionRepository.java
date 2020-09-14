@@ -16,6 +16,9 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
      * @param category Questions for this category only will be found
      * @return List<QuestionDTO> Ordered list of questions for given category. Newest are on top.
      */
-    @Query("select new com.team2.questionme.dto.QuestionDTO(q.Id, q.contents, q.localDate, q.category, q.user.id, q.user.displayName) from Question q where q.category = :category order by q.Id desc")
+    @Query("select new com.team2.questionme.dto.QuestionDTO(q.Id, q.contents, q.localDate, q.category, q.user.id, q.user.displayName) " +
+            "from Question q where q.category = :category order by q.Id desc")
     List<QuestionDTO> getFor(String category);
+
+    List<Question> findByCategory(String category);
 }

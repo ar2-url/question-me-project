@@ -17,17 +17,13 @@ public class Answer {
     @ManyToOne
     private User user;
 
-    @ManyToOne
-    private Question question;
-
     private String contents;
     private LocalDate localDate;
     private Long rating;
 
     @Autowired
-    public Answer(User user, Question question, String contents) {
+    public Answer(User user, String contents) {
         this.user = user;
-        this.question = question;
         this.contents = contents;
         this.localDate = LocalDate.now();
         this.rating = 0L;
@@ -49,14 +45,6 @@ public class Answer {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
     }
 
     public String getContents() {
