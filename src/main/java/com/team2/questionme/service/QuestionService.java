@@ -32,7 +32,7 @@ public class QuestionService {
     }
 
     public List<QuestionDTO> getFor(String category) {
-        return questionRepository.getFor(category);
+        return questionRepository.findByCategory(category);
     }
 
     public QuestionWithAnswersAndCommentsDTO getById(Long questionId) {

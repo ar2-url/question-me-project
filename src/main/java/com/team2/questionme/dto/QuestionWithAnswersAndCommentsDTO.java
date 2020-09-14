@@ -13,7 +13,7 @@ public interface QuestionWithAnswersAndCommentsDTO {
 
     String getCategory();
 
-    IUserDTO getUser();
+    UserDTO getUser();
 
     List<AnswersWithCommentsDTO> getAnswers();
 }

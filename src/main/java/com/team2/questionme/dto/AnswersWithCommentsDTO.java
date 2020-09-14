@@ -7,7 +7,7 @@ public interface AnswersWithCommentsDTO {
 
     public Long getId();
 
-    public IUserDTO getUser() ;
+    public UserDTO getUser() ;
 
     public String getContents();
 
