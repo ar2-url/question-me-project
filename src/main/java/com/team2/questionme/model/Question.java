@@ -20,6 +20,7 @@ public class Question {
     private LocalDate localDate;
     private String category;
     @OneToMany(cascade = CascadeType.ALL)
+    @OrderBy("rating DESC")
     private List<Answer> answers;
 
     @Autowired
