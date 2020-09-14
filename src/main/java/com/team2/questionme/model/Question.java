@@ -12,7 +12,7 @@ public class Question {
 
     @Id
     @GeneratedValue
-    private Long Id;
+    private Long id;
     @ManyToOne
     private User user;
 
@@ -39,11 +39,11 @@ public class Question {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public User getUser() {

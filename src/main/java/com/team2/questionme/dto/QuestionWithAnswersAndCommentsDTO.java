@@ -3,70 +3,17 @@ package com.team2.questionme.dto;
 import java.time.LocalDate;
 import java.util.List;
 
-public class QuestionWithAnswersAndCommentsDTO {
+public interface QuestionWithAnswersAndCommentsDTO {
 
-    private Long id;
-    private String contents;
-    private LocalDate localDate;
-    private String category;
-    private UserDTO asker;
+    Long getId();
 
-    private List<AnswersWithCommentsDTO> answers;
+    String getContents();
 
-    public QuestionWithAnswersAndCommentsDTO(Long id, String contents, LocalDate localDate, String category, UserDTO asker, List<AnswersWithCommentsDTO> answers) {
-        this.id = id;
-        this.contents = contents;
-        this.localDate = localDate;
-        this.category = category;
-        this.asker = asker;
-        this.answers = answers;
-    }
+    LocalDate getLocalDate();
 
-    public Long getId() {
-        return id;
-    }
+    String getCategory();
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    IUserDTO getUser();
 
-    public String getContents() {
-        return contents;
-    }
-
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
-
-    public LocalDate getLocalDate() {
-        return localDate;
-    }
-
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public UserDTO getAsker() {
-        return asker;
-    }
-
-    public void setAsker(UserDTO asker) {
-        this.asker = asker;
-    }
-
-    public List<AnswersWithCommentsDTO> getAnswers() {
-        return answers;
-    }
-
-    public void setAnswers(List<AnswersWithCommentsDTO> answers) {
-        this.answers = answers;
-    }
+    List<AnswersWithCommentsDTO> getAnswers();
 }

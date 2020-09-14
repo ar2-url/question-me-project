@@ -34,6 +34,7 @@ public class QuestionController {
     public ResponseEntity<QuestionWithAnswersAndCommentsDTO> fullQuestion(
             @PathVariable Long questionId)
     {
-        return new ResponseEntity<>(HttpStatus.OK);
+        QuestionWithAnswersAndCommentsDTO q = questionService.getById(questionId);
+        return new ResponseEntity<>(q, HttpStatus.OK);
     }
 }
