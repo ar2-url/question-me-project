@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class Comment {
     @Id
     @GeneratedValue
-    private Long Id;
+    private Long id;
 
     @ManyToOne
     private User user;
@@ -28,37 +28,5 @@ public class Comment {
     }
 
     protected Comment() {
-    }
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getContents() {
-        return contents;
-    }
-
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
-
-    public LocalDate getLocalDate() {
-        return localDate;
-    }
-
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
     }
 }

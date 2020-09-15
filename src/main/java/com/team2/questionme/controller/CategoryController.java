@@ -25,13 +25,13 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<String>> getCategories(){
+    public ResponseEntity<List<String>> getCategories() {
         List<String> all = categoryService.getAll();
         return new ResponseEntity(all, HttpStatus.OK);
     }
 
     @GetMapping("{category}/questions")
-    public ResponseEntity<List<QuestionDTO>> getQuestionsFor(@PathVariable String category){
+    public ResponseEntity<List<QuestionDTO>> getQuestionsFor(@PathVariable String category) {
         List<QuestionDTO> all = questionService.getFor(category);
         return new ResponseEntity(all, HttpStatus.OK);
     }

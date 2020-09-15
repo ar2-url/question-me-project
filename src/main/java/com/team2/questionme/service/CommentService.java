@@ -27,7 +27,7 @@ public class CommentService {
 
     public void addComment(AddCommentDTO addCommentDTO, Long answerId, UserDetails userDetails) {
         User user = userRepository.findByName(userDetails.getUsername()).get();
-        Comment comment = new Comment(user,addCommentDTO.getContent());
+        Comment comment = new Comment(user, addCommentDTO.getContent());
         Answer answer = answerRepository.getOne(answerId);
         answer.addComment(comment);
         answerRepository.save(answer);

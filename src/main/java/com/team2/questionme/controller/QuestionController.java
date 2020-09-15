@@ -24,16 +24,14 @@ public class QuestionController {
     @PostMapping
     public ResponseEntity addQuestion(
             @RequestBody AddQuestionDTO addQuestionDTO,
-            @AuthenticationPrincipal UserDetails userDetails)
-    {
+            @AuthenticationPrincipal UserDetails userDetails) {
         questionService.addQuestion(addQuestionDTO, userDetails);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping("{questionId}")
     public ResponseEntity<QuestionWithAnswersAndCommentsDTO> fullQuestion(
-            @PathVariable Long questionId)
-    {
+            @PathVariable Long questionId) {
         QuestionWithAnswersAndCommentsDTO q = questionService.getById(questionId);
         return new ResponseEntity<>(q, HttpStatus.OK);
     }

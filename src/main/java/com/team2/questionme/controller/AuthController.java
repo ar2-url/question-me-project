@@ -54,8 +54,9 @@ public class AuthController {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
     }
+
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody RegisterNewUserDTO registerNewUserDTO){
+    public ResponseEntity register(@RequestBody RegisterNewUserDTO registerNewUserDTO) {
         registerUserService.registerNewUser(registerNewUserDTO);
         return new ResponseEntity(HttpStatus.CREATED);
     }

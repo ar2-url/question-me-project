@@ -5,15 +5,15 @@ import java.util.List;
 
 public interface AnswersWithCommentsDTO {
 
-    public Long getId();
+    Long getId();
 
-    public UserDTO getUser() ;
+    UserDTO getUser();
 
-    public String getContents();
+    String getContents();
 
-    public LocalDate getLocalDate() ;
+    LocalDate getLocalDate();
 
-    public Long getRating();
+    Long getRating();
 
-    public List<CommentsDTO> getComments();
+    List<CommentsDTO> getComments();
 }
