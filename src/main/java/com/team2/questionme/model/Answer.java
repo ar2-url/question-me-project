@@ -11,7 +11,7 @@ import java.util.List;
 public class Answer {
     @Id
     @GeneratedValue
-    private Long Id;
+    private Long id;
 
     @ManyToOne
     private User user;
@@ -31,54 +31,6 @@ public class Answer {
         this.comments = new ArrayList<>();
     }
     protected Answer() {
-    }
-
-    public Long getId() {
-        return Id;
-    }
-
-//    public void setId(Long id) {
-//        Id = id;
-//    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getContents() {
-        return contents;
-    }
-
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
-
-    public LocalDate getLocalDate() {
-        return localDate;
-    }
-
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
-    }
-
-    public Long getRating() {
-        return rating;
-    }
-
-    public void setRating(Long rating) {
-        this.rating = rating;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
     }
 
     public void addComment(Comment comment) {

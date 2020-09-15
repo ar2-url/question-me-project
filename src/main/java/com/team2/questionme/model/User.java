@@ -75,46 +75,6 @@ public class User implements UserDetails {
         return true;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @NonNull
-    public String getName() {
-        return name;
-    }
-
-    public void setName(@NonNull String name) {
-        this.name = name;
-    }
-
-
-    public void setPassword(@NonNull String password) {
-        this.password = password;
-    }
-
-    @NonNull
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(@NonNull String email) {
-        this.email = email;
-    }
-
-    @NonNull
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(@NonNull String displayName) {
-        this.displayName = displayName;
-    }
-
     public List<String> getRoles() {
         return new ArrayList<>();
     }
