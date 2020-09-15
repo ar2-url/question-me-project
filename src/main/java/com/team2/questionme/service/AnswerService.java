@@ -22,6 +22,7 @@ public class AnswerService {
         this.questionRepository = questionRepository;
         this.userRepository = userRepository;
     }
+
     public void addAnswer(AddAnswerDTO addAnswerDTO, Long questionId, UserDetails userDetails) {
         User user = userRepository.findByName(userDetails.getUsername()).get();
         Question question = questionRepository.getOne(questionId);

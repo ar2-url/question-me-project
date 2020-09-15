@@ -4,12 +4,12 @@ import java.time.LocalDate;
 
 public interface CommentsDTO {
 
-    public Long getId();
+    Long getId();
 
-    public UserDTO getUser();
+    UserDTO getUser();
 
-    public String getContents();
+    String getContents();
 
-    public LocalDate getLocalDate();
+    LocalDate getLocalDate();
 }
 

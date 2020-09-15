@@ -37,9 +37,9 @@ public class Answer {
         return Id;
     }
 
-    public void setId(Long id) {
-        Id = id;
-    }
+//    public void setId(Long id) {
+//        Id = id;
+//    }
 
     public User getUser() {
         return user;

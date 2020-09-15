@@ -3,13 +3,14 @@ package com.team2.questionme.dto;
 import java.time.LocalDate;
 
 public interface QuestionDTO {
-    public Long getId() ;
 
-    public String getContents() ;
+    Long getId();
 
-    public LocalDate getLocalDate() ;
+    String getContents();
 
-    public String getCategory() ;
+    LocalDate getLocalDate();
 
-    public UserDTO getUser();
+    String getCategory();
+
+    UserDTO getUser();
 }

@@ -24,10 +24,8 @@ public class AnswerController {
     public ResponseEntity addAnswer(@RequestBody AddAnswerDTO addAnswerDTO,
                                     @PathVariable Long questionId,
                                     @AuthenticationPrincipal UserDetails userDetails
-    ){
+    ) {
         answerService.addAnswer(addAnswerDTO, questionId, userDetails);
         return new ResponseEntity(HttpStatus.CREATED);
     }
-
-
 }

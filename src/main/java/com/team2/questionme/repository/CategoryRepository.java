@@ -20,7 +20,7 @@ public class CategoryRepository {
         this.entityManager = entityManager;
     }
 
-    public List<String> getAll(){
+    public List<String> getAll() {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<String> query = builder.createQuery(String.class);
         Root<Question> questionRoot = query.from(Question.class);
