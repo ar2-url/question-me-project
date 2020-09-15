@@ -15,17 +15,13 @@ public class Comment {
     private Long Id;
 
     @ManyToOne
-    private Answer answer;
-
-    @ManyToOne
     private User user;
 
     private String contents;
     private LocalDate localDate;
 
     @Autowired
-    public Comment(Answer answer, User user, String contents) {
-        this.answer = answer;
+    public Comment(User user, String contents) {
         this.user = user;
         this.contents = contents;
         this.localDate = LocalDate.now();
@@ -40,14 +36,6 @@ public class Comment {
 
     public void setId(Long id) {
         Id = id;
-    }
-
-    public Answer getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
     }
 
     public User getUser() {

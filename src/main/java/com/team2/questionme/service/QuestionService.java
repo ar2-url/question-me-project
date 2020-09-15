@@ -2,6 +2,7 @@ package com.team2.questionme.service;
 
 import com.team2.questionme.dto.AddQuestionDTO;
 import com.team2.questionme.dto.QuestionDTO;
+import com.team2.questionme.dto.QuestionWithAnswersAndCommentsDTO;
 import com.team2.questionme.model.Question;
 import com.team2.questionme.model.User;
 import com.team2.questionme.repository.QuestionRepository;
@@ -31,6 +32,10 @@ public class QuestionService {
     }
 
     public List<QuestionDTO> getFor(String category) {
-        return questionRepository.getFor(category);
+        return questionRepository.findByCategory(category);
+    }
+
+    public QuestionWithAnswersAndCommentsDTO getById(Long questionId) {
+        return questionRepository.getOneById(questionId);
     }
 }

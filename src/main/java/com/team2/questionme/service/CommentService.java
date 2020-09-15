@@ -9,10 +9,7 @@ import com.team2.questionme.repository.CommentRepository;
 import com.team2.questionme.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 public class CommentService {
@@ -30,8 +27,9 @@ public class CommentService {
 
     public void addComment(AddCommentDTO addCommentDTO, Long answerId, UserDetails userDetails) {
         User user = userRepository.findByName(userDetails.getUsername()).get();
+        Comment comment = new Comment(user,addCommentDTO.getContent());
         Answer answer = answerRepository.getOne(answerId);
-        Comment comment = new Comment(answer,user,addCommentDTO.getContent());
-        commentRepository.save(comment);
+        answer.addComment(comment);
+        answerRepository.save(answer);
     }
 }
