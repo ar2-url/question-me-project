@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Answer {
@@ -21,6 +22,8 @@ public class Answer {
     private Long rating;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Vote> votes;
 
     @Autowired
     public Answer(User user, String contents) {
@@ -29,11 +32,34 @@ public class Answer {
         this.localDate = LocalDate.now();
         this.rating = 0L;
         this.comments = new ArrayList<>();
+        this.votes = new ArrayList<>();
     }
+
     protected Answer() {
     }
 
     public void addComment(Comment comment) {
         comments.add(comment);
+    }
+
+    public void uprate(Long userId) {
+        Optional<Vote> previousVote = votes.stream().filter(vote -> vote.getUserId().equals(userId)).findFirst();
+        previousVote.ifPresentOrElse(
+                vote -> {
+            if (vote.getVoteValue() == VoteValue.POSITIVE) {
+                // do nothing
+            } else {
+                Long newRating = rating + 2;
+                rating = newRating;
+                vote.setVoteValue(VoteValue.POSITIVE);
+            }
+        },
+                () -> {
+                    Long newRating = rating + 1;
+                    rating = newRating;
+                    Vote vote = new Vote(userId, VoteValue.POSITIVE);
+                    votes.add(vote);
+
+        });
     }
 }
