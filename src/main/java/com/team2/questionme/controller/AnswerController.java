@@ -36,5 +36,12 @@ public class AnswerController {
         answerService.addPositiveVote(answerId, userDetails);
         return new ResponseEntity(HttpStatus.CREATED);
     }
+    @PostMapping("/{questionId}/answers/{answerId}/votes/negatives")
+    public ResponseEntity addNegativeVote(@PathVariable Long answerId,
+                                          @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        answerService.addNegativeVote(answerId, userDetails);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
 
 }

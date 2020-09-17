@@ -46,20 +46,43 @@ public class Answer {
         Optional<Vote> previousVote = votes.stream().filter(vote -> vote.getUserId().equals(userId)).findFirst();
         previousVote.ifPresentOrElse(
                 vote -> {
-            if (vote.getVoteValue() == VoteValue.POSITIVE) {
-                // do nothing
-            } else {
-                Long newRating = rating + 2;
-                rating = newRating;
-                vote.setVoteValue(VoteValue.POSITIVE);
-            }
-        },
+                    if (vote.getVoteValue() == VoteValue.POSITIVE) {
+                        // do nothing
+                    } else {
+                        Long newRating = rating + 2;
+                        rating = newRating;
+                        vote.setVoteValue(VoteValue.POSITIVE);
+                    }
+                },
                 () -> {
                     Long newRating = rating + 1;
                     rating = newRating;
                     Vote vote = new Vote(userId, VoteValue.POSITIVE);
                     votes.add(vote);
 
-        });
+                });
     }
+
+    public void downrate(Long userId) {
+        Optional<Vote> previousVote = votes.stream().filter(vote -> vote.getUserId().equals(userId)).findFirst();
+        previousVote.ifPresentOrElse(
+                vote -> {
+                    if (vote.getVoteValue() == VoteValue.NEGATIVE) {
+                        // do nothing
+                    } else {
+                        Long newRating = rating - 2;
+                        rating = newRating;
+                        vote.setVoteValue(VoteValue.NEGATIVE);
+                    }
+                },
+                () -> {
+                    Long newRating = rating - 1;
+                    rating = newRating;
+                    Vote vote = new Vote(userId, VoteValue.NEGATIVE);
+                    votes.add(vote);
+
+                });
+
+    }
+
 }

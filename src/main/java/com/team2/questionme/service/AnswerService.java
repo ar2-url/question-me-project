@@ -40,4 +40,11 @@ public class AnswerService {
         answer.uprate(user.getId());
         answerRepository.save(answer);
     }
+
+    public void addNegativeVote(Long answerId, UserDetails userDetails) {
+        User user = userRepository.findByName(userDetails.getUsername()).get();
+        Answer answer = answerRepository.getOne(answerId);
+        answer.downrate(user.getId());
+        answerRepository.save(answer);
+    }
 }
