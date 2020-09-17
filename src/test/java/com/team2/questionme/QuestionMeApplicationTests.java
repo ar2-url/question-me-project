@@ -5,6 +5,7 @@ import com.team2.questionme.model.User;
 import com.team2.questionme.repository.QuestionRepository;
 import com.team2.questionme.repository.UserRepository;
 import com.team2.questionme.service.CategoryService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +32,12 @@ class QuestionMeApplicationTests {
     // Drop "question-me" schema before running test, then add query to create empty database,
     // otherwise test does not work.
 
+    @BeforeEach
+    void init() {
+        questionRepository.deleteAll();
+        userRepository.deleteAll();
+    }
+
     @Test
     public void getAll() {
         // Given
@@ -38,6 +45,7 @@ class QuestionMeApplicationTests {
         User adam = userRepository.save(new User("Adam"+rand, "secret", rand + "adam@ma.com", "ADA" + rand));
         Question question1 = new Question(adam, "Co to", CATEGORY_1);
         Question question2 = new Question(adam, "Co to 2", CATEGORY_2);
+
         questionRepository.save(question1);
         questionRepository.save(question2);
         // When
