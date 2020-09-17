@@ -14,6 +14,7 @@ public class Question {
     @GeneratedValue
     private Long id;
     @ManyToOne
+    @JoinColumn
     private User user;
 
     private String contents;
