@@ -39,6 +39,10 @@ public class User implements UserDetails {
     protected User() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>();

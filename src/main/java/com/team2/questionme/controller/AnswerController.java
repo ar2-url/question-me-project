@@ -28,4 +28,20 @@ public class AnswerController {
         answerService.addAnswer(addAnswerDTO, questionId, userDetails);
         return new ResponseEntity(HttpStatus.CREATED);
     }
+
+    @PostMapping("/{questionId}/answers/{answerId}/votes/positives")
+    public ResponseEntity addPositiveVote(@PathVariable Long answerId,
+                                  @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        answerService.addPositiveVote(answerId, userDetails);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+    @PostMapping("/{questionId}/answers/{answerId}/votes/negatives")
+    public ResponseEntity addNegativeVote(@PathVariable Long answerId,
+                                          @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        answerService.addNegativeVote(answerId, userDetails);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
 }
