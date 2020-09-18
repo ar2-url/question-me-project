@@ -2,6 +2,7 @@ package com.team2.questionme.service;
 
 import com.team2.questionme.dto.AddCommentDTO;
 import com.team2.questionme.dto.AnswerHistoryDTO;
+import com.team2.questionme.dto.CommentHistoryDTO;
 import com.team2.questionme.model.Answer;
 import com.team2.questionme.model.Comment;
 import com.team2.questionme.model.User;
@@ -36,7 +37,7 @@ public class CommentService {
         answerRepository.save(answer);
     }
 
-    public List<AnswerHistoryDTO> getAllCommentsForUser(UserDetails userDetails) {
+    public List<CommentHistoryDTO> getAllCommentsForUser(UserDetails userDetails) {
         User user = userRepository.findByName(userDetails.getUsername()).get();
         return commentRepository.findCommentsForUser(user.getId());
     }

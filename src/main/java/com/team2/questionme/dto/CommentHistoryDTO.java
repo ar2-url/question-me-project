@@ -10,7 +10,5 @@ public interface CommentHistoryDTO {
 
     LocalDate getLocalDate();
 
-    String getCategory();
-
-    Long getAnswerId();
+    Long getQuestionId();
 }

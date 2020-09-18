@@ -1,6 +1,7 @@
 package com.team2.questionme.controller;
 
 import com.team2.questionme.dto.AnswerHistoryDTO;
+import com.team2.questionme.dto.CommentHistoryDTO;
 import com.team2.questionme.dto.QuestionHistoryDTO;
 import com.team2.questionme.service.AnswerService;
 import com.team2.questionme.service.CommentService;
@@ -43,9 +44,9 @@ public class HistoryController {
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
     @GetMapping("/comments")
-    public ResponseEntity<List<AnswerHistoryDTO>> commentsHistory(
+    public ResponseEntity<List<CommentHistoryDTO>> commentsHistory(
             @AuthenticationPrincipal UserDetails userDetails) {
-        List<AnswerHistoryDTO> a = commentService.getAllCommentsForUser(userDetails);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+        List<CommentHistoryDTO> c = commentService.getAllCommentsForUser(userDetails);
+        return new ResponseEntity<>(c, HttpStatus.OK);
     }
 }
