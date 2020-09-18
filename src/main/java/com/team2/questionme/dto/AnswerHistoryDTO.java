@@ -5,11 +5,13 @@ import java.util.List;
 
 public interface AnswerHistoryDTO {
 
-    Long getId();
+    Long getAnswerId();
 
     String getContents();
 
     LocalDate getLocalDate();
 
-    List<QuestionDTO> getQuestionId();
+    Long getRating();
+
+    Long getQuestionId();
 }

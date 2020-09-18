@@ -11,10 +11,12 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+//@Table(name = "hahaha")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue
+    //@JoinColumn(name = )
     private Long id;
 
     @Column(unique = true)

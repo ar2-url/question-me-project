@@ -34,5 +34,5 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
         return resultList;
     }*/
-    List<AnswerHistoryDTO> findAnswersByUserOrderByIdDesc(User user);
+//    List<AnswerHistoryDTO> findAnswersByUserOrderByIdDesc(User user);
 }

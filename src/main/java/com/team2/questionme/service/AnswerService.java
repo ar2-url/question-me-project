@@ -52,10 +52,8 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
-    public List<AnswerHistoryDTO> getAllAnswersForUser(Long questionId, UserDetails userDetails) {
+    public List<AnswerHistoryDTO> getAllAnswersForUser(UserDetails userDetails) {
         User user = userRepository.findByName(userDetails.getUsername()).get();
-       // Question question = questionRepository.getOne(questionId);
-        Answer answer = answerRepository.getOne(questionId);
-        return answerRepository.findByUserOrderByIdDesc(answer);
+        return answerRepository.findAnswersForUser();
     }
 }
