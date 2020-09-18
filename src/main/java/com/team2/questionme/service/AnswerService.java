@@ -54,6 +54,6 @@ public class AnswerService {
 
     public List<AnswerHistoryDTO> getAllAnswersForUser(UserDetails userDetails) {
         User user = userRepository.findByName(userDetails.getUsername()).get();
-        return answerRepository.findAnswersForUser();
+        return answerRepository.findAnswersForUser(user.getId());
     }
 }
