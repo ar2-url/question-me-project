@@ -6,6 +6,8 @@ import com.team2.questionme.model.User;
 import com.team2.questionme.repository.QuestionRepository;
 import com.team2.questionme.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +31,8 @@ public class QuestionService {
         questionRepository.save(question);
     }
 
-    public List<QuestionDTO> getFor(String category) {
-        return questionRepository.findByCategory(category);
+    public Page<QuestionDTO> getFor(String category, Pageable pageable) {
+        return questionRepository.findByCategory(category, pageable);
     }
 
     public QuestionWithAnswersAndCommentsDTO getById(Long questionId) {
