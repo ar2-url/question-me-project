@@ -2,6 +2,7 @@ package com.team2.questionme.service;
 
 
 import com.team2.questionme.dto.AddAnswerDTO;
+import com.team2.questionme.dto.AnswerHistoryDTO;
 import com.team2.questionme.model.Answer;
 import com.team2.questionme.model.Question;
 import com.team2.questionme.model.User;
@@ -12,12 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AnswerService {
 
     private QuestionRepository questionRepository;
     private UserRepository userRepository;
     private AnswerRepository answerRepository;
+
 
     @Autowired
     public AnswerService(QuestionRepository questionRepository, UserRepository userRepository, AnswerRepository answerRepository) {
@@ -46,5 +50,12 @@ public class AnswerService {
         Answer answer = answerRepository.getOne(answerId);
         answer.downrate(user.getId());
         answerRepository.save(answer);
+    }
+
+    public List<AnswerHistoryDTO> getAllAnswersForUser(Long questionId, UserDetails userDetails) {
+        User user = userRepository.findByName(userDetails.getUsername()).get();
+       // Question question = questionRepository.getOne(questionId);
+        Answer answer = answerRepository.getOne(questionId);
+        return answerRepository.findByUserOrderByIdDesc(answer);
     }
 }

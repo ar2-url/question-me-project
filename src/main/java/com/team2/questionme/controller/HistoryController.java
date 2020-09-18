@@ -1,6 +1,8 @@
 package com.team2.questionme.controller;
 
+import com.team2.questionme.dto.AnswerHistoryDTO;
 import com.team2.questionme.dto.QuestionHistoryDTO;
+import com.team2.questionme.service.AnswerService;
 import com.team2.questionme.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +18,13 @@ import java.util.List;
 public class HistoryController {
 
     private QuestionService questionService;
+    private AnswerService answerService;
 
     @Autowired
-    public HistoryController(QuestionService questionService) {
+    public HistoryController(QuestionService questionService, AnswerService answerService) {
         this.questionService = questionService;
+        this.answerService = answerService;
     }
-
 
     @GetMapping("/questions")
     public ResponseEntity<List<QuestionHistoryDTO>> questionsHistory(
@@ -30,10 +33,10 @@ public class HistoryController {
             return new ResponseEntity<>(q, HttpStatus.OK);
     }
 
-    /*@GetMapping("/answers")
+    @GetMapping("/answers")
     public ResponseEntity<List<AnswerHistoryDTO>> answersHistory(
             @AuthenticationPrincipal UserDetails userDetails) {
-        List<AnswerHistoryDTO> q = questionService.getAllForUser(userDetails);
-        return new ResponseEntity<>(q, HttpStatus.OK);
-    }*/
+        List<AnswerHistoryDTO> a = answerService.getAllAnswersForUser(userDetails);
+        return new ResponseEntity<>(a, HttpStatus.OK);
+    }
 }

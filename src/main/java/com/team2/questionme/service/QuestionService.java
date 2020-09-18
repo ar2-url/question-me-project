@@ -1,9 +1,6 @@
 package com.team2.questionme.service;
 
-import com.team2.questionme.dto.AddQuestionDTO;
-import com.team2.questionme.dto.QuestionDTO;
-import com.team2.questionme.dto.QuestionHistoryDTO;
-import com.team2.questionme.dto.QuestionWithAnswersAndCommentsDTO;
+import com.team2.questionme.dto.*;
 import com.team2.questionme.model.Question;
 import com.team2.questionme.model.User;
 import com.team2.questionme.repository.QuestionRepository;
