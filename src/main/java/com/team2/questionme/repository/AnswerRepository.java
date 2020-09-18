@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AnswerRepository extends JpaRepository<Answer, Long> {//, JpaSpecificationExecutor<AnswerHistoryDTO> {
+public interface AnswerRepository extends JpaRepository<Answer, Long> {
     String GET_ANSWERS_FOR_USER = "SELECT a.id as dupa, a.local_date as localDate, a.rating as rating, a.contents as contents, q.id as questionId " +
             " FROM answer as a\n" +
             "join question_answers as qa\n" +
