@@ -4,6 +4,8 @@ import com.team2.questionme.dto.QuestionDTO;
 import com.team2.questionme.service.CategoryService;
 import com.team2.questionme.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +33,8 @@ public class CategoryController {
     }
 
     @GetMapping("{category}/questions")
-    public ResponseEntity<List<QuestionDTO>> getQuestionsFor(@PathVariable String category) {
-        List<QuestionDTO> all = questionService.getFor(category);
+    public ResponseEntity<Page<QuestionDTO>> getQuestionsFor(@PathVariable String category, Pageable pagable) {
+        Page<QuestionDTO> all = questionService.getFor(category, pagable);
         return new ResponseEntity(all, HttpStatus.OK);
     }
 }
