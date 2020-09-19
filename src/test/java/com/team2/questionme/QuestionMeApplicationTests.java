@@ -4,7 +4,7 @@ import com.team2.questionme.model.Question;
 import com.team2.questionme.model.User;
 import com.team2.questionme.repository.QuestionRepository;
 import com.team2.questionme.repository.UserRepository;
-import com.team2.questionme.service.CategoryService;
+import com.team2.questionme.service.CategoryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ class QuestionMeApplicationTests {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    CategoryService categoryService;
+    CategoryServiceImpl categoryService;
 
     // Drop "question-me" schema before running test, then add query to create empty database,
     // otherwise test does not work.

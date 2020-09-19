@@ -24,7 +24,7 @@ public class HistoryController {
     private CommentService commentService;
 
     @Autowired
-    public HistoryController(QuestionService questionService, AnswerService answerService,CommentService commentService) {
+    public HistoryController(QuestionService questionService, AnswerService answerService, CommentService commentService) {
         this.questionService = questionService;
         this.answerService = answerService;
         this.commentService = commentService;
