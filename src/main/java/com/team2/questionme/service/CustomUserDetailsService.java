@@ -3,7 +3,7 @@ package com.team2.questionme.service;
 import com.team2.questionme.dto.RegisterNewUserDTO;
 import com.team2.questionme.model.User;
 import com.team2.questionme.repository.UserRepository;
-import com.team2.questionme.security.PasswordService;
+import com.team2.questionme.security.PasswordServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService, RegisterUserService {
 
     private UserRepository users;
-    private PasswordService passwordService;
+    private PasswordServiceImpl passwordService;
 
     @Autowired
-    public CustomUserDetailsService(UserRepository users, PasswordService passwordService) {
+    public CustomUserDetailsService(UserRepository users, PasswordServiceImpl passwordService) {
         this.users = users;
         this.passwordService = passwordService;
     }

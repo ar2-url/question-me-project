@@ -3,7 +3,7 @@ package com.team2.questionme.controller;
 import com.team2.questionme.dto.AuthenticationRequest;
 import com.team2.questionme.dto.RegisterNewUserDTO;
 import com.team2.questionme.repository.UserRepository;
-import com.team2.questionme.security.JwtTokenProvider;
+import com.team2.questionme.security.JwtTokenProviderImpl;
 import com.team2.questionme.service.RegisterUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,12 +28,12 @@ import static org.springframework.http.ResponseEntity.ok;
 public class AuthController {
 
     private AuthenticationManager authenticationManager;
-    private JwtTokenProvider jwtTokenProvider;
+    private JwtTokenProviderImpl jwtTokenProvider;
     private UserRepository users;
     private RegisterUserService registerUserService;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserRepository users, RegisterUserService registerUserService) {
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenProviderImpl jwtTokenProvider, UserRepository users, RegisterUserService registerUserService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.users = users;
