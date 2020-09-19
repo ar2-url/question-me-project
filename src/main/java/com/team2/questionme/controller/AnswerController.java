@@ -21,7 +21,8 @@ public class AnswerController {
     }
 
     @PostMapping("/{questionId}/answers")
-    public ResponseEntity addAnswer(@RequestBody AddAnswerDTO addAnswerDTO,
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Void> addAnswer(@RequestBody AddAnswerDTO addAnswerDTO,
                                     @PathVariable Long questionId,
                                     @AuthenticationPrincipal UserDetails userDetails
     ) {
