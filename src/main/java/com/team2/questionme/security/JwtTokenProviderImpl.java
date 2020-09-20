@@ -74,8 +74,7 @@ public class JwtTokenProviderImpl implements JwtTokenProvider{
             }
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            //TODO throw better exception
-            throw new JwtException("Expired or invalid JWT token");
+            return false;
         }
     }
 }
