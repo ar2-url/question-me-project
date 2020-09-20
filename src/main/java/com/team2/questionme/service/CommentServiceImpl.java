@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -28,12 +29,17 @@ public class CommentServiceImpl implements CommentService {
         this.commentRepository = commentRepository;
     }
 
-    public void addComment(AddCommentDTO addCommentDTO, Long answerId, UserDetails userDetails) {
+    public boolean addComment(AddCommentDTO addCommentDTO, Long answerId, UserDetails userDetails) {
         User user = userRepository.findByName(userDetails.getUsername()).get();
         Comment comment = new Comment(user, addCommentDTO.getContent());
-        Answer answer = answerRepository.getOne(answerId);
-        answer.addComment(comment);
-        answerRepository.save(answer);
+        Optional<Answer> answerOp = answerRepository.findById(answerId);
+        if (answerOp.isPresent()) {
+            Answer answer = answerOp.get();
+            answer.addComment(comment);
+            answerRepository.save(answer);
+            return true;
+        }
+        return false;
     }
 
     public List<CommentHistoryDTO> getAllCommentsForUser(UserDetails userDetails) {

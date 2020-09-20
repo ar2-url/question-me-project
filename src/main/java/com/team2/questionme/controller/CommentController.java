@@ -3,6 +3,8 @@ package com.team2.questionme.controller;
 import com.team2.questionme.dto.AddCommentDTO;
 
 import com.team2.questionme.service.CommentService;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +25,18 @@ public class CommentController {
 
     @PostMapping("{questionId}/answers/{answerId}/comments")
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiResponses(value = {@ApiResponse(code = 400, message = "No comment with such Id"),
+            @ApiResponse(code = 201, message = "Created")})
     public ResponseEntity<Void> addComment(
             @RequestBody AddCommentDTO addCommentDTO,
             @PathVariable Long questionId,
             @PathVariable Long answerId,
-            @AuthenticationPrincipal UserDetails userDetails
-    ) {
-        commentService.addComment(addCommentDTO, answerId, userDetails);
-        return new ResponseEntity(HttpStatus.CREATED);
-    }
+            @AuthenticationPrincipal UserDetails userDetails) {
 
+        boolean success = commentService.addComment(addCommentDTO, answerId, userDetails);
+        if (success == true) {
+            return new ResponseEntity(HttpStatus.CREATED);
+        }
+        return new ResponseEntity("No comment with such Id", HttpStatus.BAD_REQUEST);
+    }
 }
