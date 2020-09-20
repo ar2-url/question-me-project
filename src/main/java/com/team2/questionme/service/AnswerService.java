@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AnswerService {
 
-    void addAnswer(AddAnswerDTO addAnswerDTO, Long questionId, UserDetails userDetails);
+    boolean addAnswer(AddAnswerDTO addAnswerDTO, Long questionId, UserDetails userDetails);
 
     void addPositiveVote(Long answerId, UserDetails userDetails);
 
