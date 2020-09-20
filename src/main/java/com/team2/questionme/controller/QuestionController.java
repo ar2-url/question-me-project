@@ -22,7 +22,8 @@ public class QuestionController {
     }
 
     @PostMapping
-    public ResponseEntity addQuestion(
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Void> addQuestion(
             @RequestBody AddQuestionDTO addQuestionDTO,
             @AuthenticationPrincipal UserDetails userDetails) {
         questionService.addQuestion(addQuestionDTO, userDetails);

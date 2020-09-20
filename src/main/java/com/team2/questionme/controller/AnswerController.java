@@ -31,6 +31,7 @@ public class AnswerController {
     }
 
     @PostMapping("/{questionId}/answers/{answerId}/votes/positives")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity addPositiveVote(@PathVariable Long answerId,
                                   @AuthenticationPrincipal UserDetails userDetails
     ) {
@@ -38,6 +39,7 @@ public class AnswerController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
     @PostMapping("/{questionId}/answers/{answerId}/votes/negatives")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity addNegativeVote(@PathVariable Long answerId,
                                           @AuthenticationPrincipal UserDetails userDetails
     ) {
