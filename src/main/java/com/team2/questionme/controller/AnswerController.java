@@ -41,8 +41,10 @@ public class AnswerController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses(value = {@ApiResponse(code = 400, message = "No answer with such Id"),
             @ApiResponse(code = 201, message = "Created")})
-    public ResponseEntity<Void> addPositiveVote(@PathVariable Long answerId,
-                                                @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<Void> addPositiveVote(
+            @PathVariable String questionId,
+            @PathVariable Long answerId,
+            @AuthenticationPrincipal UserDetails userDetails) {
 
         boolean success = answerService.addPositiveVote(answerId, userDetails);
         if (success == true) {
@@ -55,8 +57,10 @@ public class AnswerController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses(value = {@ApiResponse(code = 400, message = "No answer with such Id"),
             @ApiResponse(code = 201, message = "Created")})
-    public ResponseEntity<Void> addNegativeVote(@PathVariable Long answerId,
-                                                @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<Void> addNegativeVote(
+            @PathVariable String questionId,
+            @PathVariable Long answerId,
+            @AuthenticationPrincipal UserDetails userDetails) {
 
         boolean success = answerService.addNegativeVote(answerId, userDetails);
         if (success == true) {
