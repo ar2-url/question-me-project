@@ -43,8 +43,8 @@ public class CategoryController {
             @ApiImplicitParam(name = "sort", allowMultiple = true, dataType = "string", paramType = "query",
                     value = "Sorting criteria in the format: property(,asc|desc). " +
                             "Default sort order is ascending. " +
-                            "Multiple sort criteria are supported.")
-    })
+                            "Multiple sort criteria are supported.")})
+    
     public ResponseEntity<Page<QuestionDTO>> getQuestionsFor(@PathVariable String category, Pageable pagable) {
         Page<QuestionDTO> all = questionService.getFor(category, pagable);
         return new ResponseEntity(all, HttpStatus.OK);

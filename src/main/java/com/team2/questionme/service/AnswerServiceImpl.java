@@ -14,9 +14,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class AnswerServiceImpl implements AnswerService{
+public class AnswerServiceImpl implements AnswerService {
 
     private QuestionRepository questionRepository;
     private UserRepository userRepository;
@@ -30,26 +31,41 @@ public class AnswerServiceImpl implements AnswerService{
         this.answerRepository = answerRepository;
     }
 
-    public void addAnswer(AddAnswerDTO addAnswerDTO, Long questionId, UserDetails userDetails) {
+    public boolean addAnswer(AddAnswerDTO addAnswerDTO, Long questionId, UserDetails userDetails) {
         User user = userRepository.findByName(userDetails.getUsername()).get();
-        Question question = questionRepository.getOne(questionId);
-        Answer answer = new Answer(user, addAnswerDTO.getContent());
-        question.addAnswer(answer);
-        questionRepository.save(question);
+        Optional<Question> questionOp = questionRepository.findById(questionId);
+        if (questionOp.isPresent()) {
+            Answer answer = new Answer(user, addAnswerDTO.getContent());
+            Question question = questionOp.get();
+            question.addAnswer(answer);
+            questionRepository.save(question);
+            return true;
+        }
+        return false;
     }
 
-    public void addPositiveVote(Long answerId, UserDetails userDetails) {
+    public boolean addPositiveVote(Long answerId, UserDetails userDetails) {
         User user = userRepository.findByName(userDetails.getUsername()).get();
-        Answer answer = answerRepository.getOne(answerId);
-        answer.uprate(user.getId());
-        answerRepository.save(answer);
+        Optional<Answer> answerOp = answerRepository.findById(answerId);
+        if (answerOp.isPresent()) {
+            Answer answer = answerOp.get();
+            answer.uprate(user.getId());
+            answerRepository.save(answer);
+            return true;
+        }
+        return false;
     }
 
-    public void addNegativeVote(Long answerId, UserDetails userDetails) {
+    public boolean addNegativeVote(Long answerId, UserDetails userDetails) {
         User user = userRepository.findByName(userDetails.getUsername()).get();
-        Answer answer = answerRepository.getOne(answerId);
-        answer.downrate(user.getId());
-        answerRepository.save(answer);
+        Optional<Answer> answerOp = answerRepository.findById(answerId);
+        if (answerOp.isPresent()) {
+            Answer answer = answerOp.get();
+            answer.downrate(user.getId());
+            answerRepository.save(answer);
+            return true;
+        }
+        return false;
     }
 
     public List<AnswerHistoryDTO> getAllAnswersForUser(UserDetails userDetails) {

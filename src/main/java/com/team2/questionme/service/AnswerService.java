@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface AnswerService {
 
-    void addAnswer(AddAnswerDTO addAnswerDTO, Long questionId, UserDetails userDetails);
+    boolean addAnswer(AddAnswerDTO addAnswerDTO, Long questionId, UserDetails userDetails);
 
-    void addPositiveVote(Long answerId, UserDetails userDetails);
+    boolean addPositiveVote(Long answerId, UserDetails userDetails);
 
-    void addNegativeVote(Long answerId, UserDetails userDetails);
+    boolean addNegativeVote(Long answerId, UserDetails userDetails);
 
     List<AnswerHistoryDTO> getAllAnswersForUser(UserDetails userDetails);
 }

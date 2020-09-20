@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CommentService {
 
-    void addComment(AddCommentDTO addCommentDTO, Long answerId, UserDetails userDetails);
+    boolean addComment(AddCommentDTO addCommentDTO, Long answerId, UserDetails userDetails);
 
     List<CommentHistoryDTO> getAllCommentsForUser(UserDetails userDetails);
 

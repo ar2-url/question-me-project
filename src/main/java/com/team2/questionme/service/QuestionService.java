@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface QuestionService {
 
@@ -16,7 +17,7 @@ public interface QuestionService {
 
     Page<QuestionDTO> getFor(String category, Pageable pageable);
 
-    QuestionWithAnswersAndCommentsDTO getById(Long questionId);
+    Optional<QuestionWithAnswersAndCommentsDTO> getById(Long questionId);
 
     List<QuestionHistoryDTO> getAllForUser(UserDetails userDetails);
 }
