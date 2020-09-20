@@ -3,6 +3,8 @@ package com.team2.questionme.controller;
 import com.team2.questionme.dto.AddQuestionDTO;
 import com.team2.questionme.dto.QuestionWithAnswersAndCommentsDTO;
 import com.team2.questionme.service.QuestionService;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +33,13 @@ public class QuestionController {
     }
 
     @GetMapping("{questionId}")
+    @ApiResponses(@ApiResponse( code = 404, message = "Not found"))
     public ResponseEntity<QuestionWithAnswersAndCommentsDTO> fullQuestion(
             @PathVariable Long questionId) {
         QuestionWithAnswersAndCommentsDTO q = questionService.getById(questionId);
+        if(q == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(q, HttpStatus.OK);
     }
-
 }
