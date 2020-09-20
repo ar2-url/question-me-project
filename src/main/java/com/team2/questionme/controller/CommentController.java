@@ -22,7 +22,8 @@ public class CommentController {
     }
 
     @PostMapping("{questionId}/answers/{answerId}/comments")
-    public ResponseEntity addComment(
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Void> addComment(
             @RequestBody AddCommentDTO addCommentDTO,
             @PathVariable Long questionId,
             @PathVariable Long answerId,

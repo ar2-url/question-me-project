@@ -3,6 +3,8 @@ package com.team2.questionme.controller;
 import com.team2.questionme.dto.QuestionDTO;
 import com.team2.questionme.service.CategoryService;
 import com.team2.questionme.service.QuestionService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +35,16 @@ public class CategoryController {
     }
 
     @GetMapping("{category}/questions")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query",
+                    value = "Results page you want to retrieve (0..N)"),
+            @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query",
+                    value = "Number of records per page."),
+            @ApiImplicitParam(name = "sort", allowMultiple = true, dataType = "string", paramType = "query",
+                    value = "Sorting criteria in the format: property(,asc|desc). " +
+                            "Default sort order is ascending. " +
+                            "Multiple sort criteria are supported.")
+    })
     public ResponseEntity<Page<QuestionDTO>> getQuestionsFor(@PathVariable String category, Pageable pagable) {
         Page<QuestionDTO> all = questionService.getFor(category, pagable);
         return new ResponseEntity(all, HttpStatus.OK);
