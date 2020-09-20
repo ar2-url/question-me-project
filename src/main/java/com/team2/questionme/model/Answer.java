@@ -38,6 +38,10 @@ public class Answer {
     protected Answer() {
     }
 
+    public Long getRating() {
+        return rating;
+    }
+
     public void addComment(Comment comment) {
         comments.add(comment);
     }
