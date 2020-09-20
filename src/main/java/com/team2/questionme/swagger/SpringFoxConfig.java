@@ -1,4 +1,4 @@
-package com.team2.questionme.security;
+package com.team2.questionme.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
