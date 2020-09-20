@@ -12,6 +12,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/questions")
 public class QuestionController {
@@ -36,10 +38,10 @@ public class QuestionController {
     @ApiResponses(@ApiResponse( code = 404, message = "Not found"))
     public ResponseEntity<QuestionWithAnswersAndCommentsDTO> fullQuestion(
             @PathVariable Long questionId) {
-        QuestionWithAnswersAndCommentsDTO q = questionService.getById(questionId);
-        if(q == null){
+        Optional<QuestionWithAnswersAndCommentsDTO> q = questionService.getById(questionId);
+        if(q.isPresent() == false){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(q, HttpStatus.OK);
+        return new ResponseEntity<>(q.get(), HttpStatus.OK);
     }
 }

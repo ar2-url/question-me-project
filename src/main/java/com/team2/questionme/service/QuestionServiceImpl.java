@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuestionServiceImpl implements QuestionService{
@@ -35,7 +36,7 @@ public class QuestionServiceImpl implements QuestionService{
         return questionRepository.findByCategory(category, pageable);
     }
 
-    public QuestionWithAnswersAndCommentsDTO getById(Long questionId) {
+    public Optional<QuestionWithAnswersAndCommentsDTO> getById(Long questionId) {
         return questionRepository.getOneById(questionId);
     }
 

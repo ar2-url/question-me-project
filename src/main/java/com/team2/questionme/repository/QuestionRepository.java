@@ -1,6 +1,5 @@
 package com.team2.questionme.repository;
 
-import com.team2.questionme.dto.AnswerHistoryDTO;
 import com.team2.questionme.dto.QuestionDTO;
 import com.team2.questionme.dto.QuestionHistoryDTO;
 import com.team2.questionme.dto.QuestionWithAnswersAndCommentsDTO;
@@ -12,13 +11,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     Page<QuestionDTO> findByCategory(String category, Pageable pageable);
 
-    QuestionWithAnswersAndCommentsDTO getOneById(Long questionId);
+    Optional<QuestionWithAnswersAndCommentsDTO> getOneById(Long questionId);
 
     List<QuestionHistoryDTO> findByUserOrderByIdDesc(User user);
 
