@@ -44,18 +44,28 @@ public class AnswerServiceImpl implements AnswerService {
         return false;
     }
 
-    public void addPositiveVote(Long answerId, UserDetails userDetails) {
+    public boolean addPositiveVote(Long answerId, UserDetails userDetails) {
         User user = userRepository.findByName(userDetails.getUsername()).get();
-        Answer answer = answerRepository.getOne(answerId);
-        answer.uprate(user.getId());
-        answerRepository.save(answer);
+        Optional<Answer> answerOp = answerRepository.findById(answerId);
+        if (answerOp.isPresent()) {
+            Answer answer = answerOp.get();
+            answer.uprate(user.getId());
+            answerRepository.save(answer);
+            return true;
+        }
+        return false;
     }
 
-    public void addNegativeVote(Long answerId, UserDetails userDetails) {
+    public boolean addNegativeVote(Long answerId, UserDetails userDetails) {
         User user = userRepository.findByName(userDetails.getUsername()).get();
-        Answer answer = answerRepository.getOne(answerId);
-        answer.downrate(user.getId());
-        answerRepository.save(answer);
+        Optional<Answer> answerOp = answerRepository.findById(answerId);
+        if (answerOp.isPresent()) {
+            Answer answer = answerOp.get();
+            answer.downrate(user.getId());
+            answerRepository.save(answer);
+            return true;
+        }
+        return false;
     }
 
     public List<AnswerHistoryDTO> getAllAnswersForUser(UserDetails userDetails) {

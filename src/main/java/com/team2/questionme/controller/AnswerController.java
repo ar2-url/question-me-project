@@ -24,36 +24,45 @@ public class AnswerController {
 
     @PostMapping("/{questionId}/answers")
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiResponses(value = {@ApiResponse( code = 400, message = "No question with such Id"),
-                            @ApiResponse(code = 201, message = "Created")})
+    @ApiResponses(value = {@ApiResponse(code = 400, message = "No question with such Id"),
+            @ApiResponse(code = 201, message = "Created")})
     public ResponseEntity<Void> addAnswer(@RequestBody AddAnswerDTO addAnswerDTO,
-                                    @PathVariable Long questionId,
-                                    @AuthenticationPrincipal UserDetails userDetails
+                                          @PathVariable Long questionId,
+                                          @AuthenticationPrincipal UserDetails userDetails
     ) {
 
         boolean success = answerService.addAnswer(addAnswerDTO, questionId, userDetails);
-        if(success == true) {
+        if (success == true) {
             return new ResponseEntity(HttpStatus.CREATED);
         }
-        return new ResponseEntity("No question with such Id",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity("No question with such Id", HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/{questionId}/answers/{answerId}/votes/positives")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity addPositiveVote(@PathVariable Long answerId,
-                                  @AuthenticationPrincipal UserDetails userDetails
+    @ApiResponses(value = {@ApiResponse(code = 400, message = "No answer with such Id"),
+            @ApiResponse(code = 201, message = "Created")})
+    public ResponseEntity<Void> addPositiveVote(@PathVariable Long answerId,
+                                                @AuthenticationPrincipal UserDetails userDetails
     ) {
-        answerService.addPositiveVote(answerId, userDetails);
-        return new ResponseEntity(HttpStatus.CREATED);
+        boolean success = answerService.addPositiveVote(answerId, userDetails);
+        if (success == true) {
+            return new ResponseEntity(HttpStatus.CREATED);
+        }
+        return new ResponseEntity("No answer with such Id", HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/{questionId}/answers/{answerId}/votes/negatives")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity addNegativeVote(@PathVariable Long answerId,
+    @ApiResponses(value = {@ApiResponse(code = 400, message = "No answer with such Id"),
+            @ApiResponse(code = 201, message = "Created")})
+    public ResponseEntity<Void> addNegativeVote(@PathVariable Long answerId,
                                           @AuthenticationPrincipal UserDetails userDetails
     ) {
-        answerService.addNegativeVote(answerId, userDetails);
-        return new ResponseEntity(HttpStatus.CREATED);
+        boolean success = answerService.addNegativeVote(answerId, userDetails);
+        if (success == true) {
+            return new ResponseEntity(HttpStatus.CREATED);
+        }
+        return new ResponseEntity("No answer with such Id", HttpStatus.BAD_REQUEST);
     }
-
 }
