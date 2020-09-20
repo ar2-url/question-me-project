@@ -1,7 +1,6 @@
 package com.team2.questionme.dto;
 
 public class AddCommentDTO {
-
     private String content;
 
     public AddCommentDTO() {
