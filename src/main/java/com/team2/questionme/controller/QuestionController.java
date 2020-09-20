@@ -35,7 +35,7 @@ public class QuestionController {
     }
 
     @GetMapping("{questionId}")
-    @ApiResponses(@ApiResponse( code = 404, message = "Not found"))
+    @ApiResponses(@ApiResponse(code = 404, message = "Not found"))
     public ResponseEntity<QuestionWithAnswersAndCommentsDTO> fullQuestion(
             @PathVariable Long questionId) {
         Optional<QuestionWithAnswersAndCommentsDTO> q = questionService.getById(questionId);
