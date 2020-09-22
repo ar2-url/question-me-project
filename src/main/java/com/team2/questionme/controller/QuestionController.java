@@ -27,11 +27,11 @@ public class QuestionController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> addQuestion(
+    public ResponseEntity<Long> addQuestion(
             @RequestBody AddQuestionDTO addQuestionDTO,
             @AuthenticationPrincipal UserDetails userDetails) {
-        questionService.addQuestion(addQuestionDTO, userDetails);
-        return new ResponseEntity(HttpStatus.CREATED);
+        Long qId = questionService.addQuestion(addQuestionDTO, userDetails);
+        return new ResponseEntity(qId, HttpStatus.CREATED);
     }
 
     @GetMapping("{questionId}")

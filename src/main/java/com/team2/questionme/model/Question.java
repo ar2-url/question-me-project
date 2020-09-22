@@ -38,4 +38,8 @@ public class Question {
     public void addAnswer(Answer answer){
         this.answers.add(answer);
     }
+
+    public Long getId() {
+        return id;
+    }
 }

@@ -1,4 +1,4 @@
-package com.team2.questionme;
+package com.team2.questionme.integration;
 
 import com.team2.questionme.model.Question;
 import com.team2.questionme.model.User;
@@ -16,7 +16,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class QuestionMeApplicationTests {
+class QuestionMeIT {
 
 
     public static final String CATEGORY_1 = "KaT1";
