@@ -4,7 +4,6 @@ import com.team2.questionme.controller.UserController;
 import com.team2.questionme.dto.RegisterNewUserDTO;
 import com.team2.questionme.model.User;
 import com.team2.questionme.repository.UserRepository;
-import com.team2.questionme.service.RegisterUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class RegisteredUserUtil {
 
     @Autowired
-    private RegisterUserService registerUserService;
+    private UserController userController;
     @Autowired
     private UserRepository userRepository;
 
@@ -21,7 +20,6 @@ public class RegisteredUserUtil {
     }
 
     public User registerNewUserWith(String uniqueUserName, String password) {
-        UserController userController = new UserController(registerUserService);
         RegisterNewUserDTO dto = new RegisterNewUserDTO();
         String userName = uniqueUserName;
         String displayName = "displayNameFor" + uniqueUserName;

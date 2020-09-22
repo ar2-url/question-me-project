@@ -4,7 +4,6 @@ import com.team2.questionme.controller.UserController;
 import com.team2.questionme.dto.RegisterNewUserDTO;
 import com.team2.questionme.model.User;
 import com.team2.questionme.repository.UserRepository;
-import com.team2.questionme.service.RegisterUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,24 +11,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import javax.transaction.Transactional;
-
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Transactional
 class UserControllerIT {
 
     @Autowired
-    private RegisterUserService registerUserService;
+    private UserController sut;
     @Autowired
     private UserRepository userRepository;
 
     @Test
     void shouldRegisterNewUser_WhenAllInformationProvidedAndUnique() {
         // given
-        UserController sut = new UserController(registerUserService);
         RegisterNewUserDTO dto = new RegisterNewUserDTO();
         String userName = "userName";
         String displayName = "displayName";

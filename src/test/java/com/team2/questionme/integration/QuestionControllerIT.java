@@ -6,7 +6,6 @@ import com.team2.questionme.dto.QuestionWithAnswersAndCommentsDTO;
 import com.team2.questionme.dto.UserDTO;
 import com.team2.questionme.integration.util.RegisteredUserUtil;
 import com.team2.questionme.model.User;
-import com.team2.questionme.service.QuestionService;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class QuestionControllerIT {
 
     @Autowired
-    private QuestionService questionService;
+    private QuestionController sut;
     @Autowired
     private RegisteredUserUtil registeredUserCreator;
 
@@ -34,7 +33,6 @@ class QuestionControllerIT {
         // given
         User userDetails = registeredUserCreator.registerNewUserWith("username");
 
-        QuestionController sut = new QuestionController(questionService);
         String category = "cat";
         String content = "content";
 
@@ -61,9 +59,6 @@ class QuestionControllerIT {
 
     @Test
     void shouldReturn404_WhenQuestionDoesNotExist(){
-        // given
-        QuestionController sut = new QuestionController(questionService);
-
         // when
         ResponseEntity<QuestionWithAnswersAndCommentsDTO> questionResponse = sut.fullQuestion(500L);
 

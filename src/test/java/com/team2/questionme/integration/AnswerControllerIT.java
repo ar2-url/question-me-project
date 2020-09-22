@@ -3,13 +3,11 @@ package com.team2.questionme.integration;
 import com.team2.questionme.controller.AnswerController;
 import com.team2.questionme.controller.QuestionController;
 import com.team2.questionme.dto.AddAnswerDTO;
-import com.team2.questionme.dto.AddQuestionDTO;
 import com.team2.questionme.dto.AnswersWithCommentsDTO;
 import com.team2.questionme.dto.QuestionWithAnswersAndCommentsDTO;
+import com.team2.questionme.integration.util.QuestionUtil;
 import com.team2.questionme.integration.util.RegisteredUserUtil;
 import com.team2.questionme.model.User;
-import com.team2.questionme.service.AnswerService;
-import com.team2.questionme.service.QuestionService;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import javax.transaction.Transactional;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,29 +27,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Transactional
 class AnswerControllerIT {
 
-
     @Autowired
     private RegisteredUserUtil registeredUserCreator;
     @Autowired
-    private AnswerService answerService;
+    private QuestionUtil questionUtil;
     @Autowired
-    private QuestionService questionService;
+    private QuestionController questionController;
+    @Autowired
+    private AnswerController sut;
 
     @Test
     void shouldAddNewAnswer_WhenAllInformationCorrect(){
         // given
         User userForQuestion = registeredUserCreator.registerNewUserWith("userForQuestion");
         User userForAnswer = registeredUserCreator.registerNewUserWith("username");
-        AnswerController sut = new AnswerController(answerService);
-
-        QuestionController questionController = new QuestionController(questionService);
-        String category = "cat";
         String content = "content";
 
-        AddQuestionDTO addQuestionDTO = new AddQuestionDTO();
-        addQuestionDTO.setCategory(category);
-        addQuestionDTO.setContent(content);
-        Long qId = questionController.addQuestion(addQuestionDTO, userForQuestion).getBody();
+        Long qId = questionUtil.addNewQuestionBy(userForQuestion);
 
         AddAnswerDTO request = new AddAnswerDTO();
         request.setContent(content);
@@ -78,7 +69,6 @@ class AnswerControllerIT {
     void shouldReturn400_WhenQuestionDoesNotExist(){
         // given
         User user = registeredUserCreator.registerNewUserWith("any");
-        AnswerController sut = new AnswerController(answerService);
 
         // when
         ResponseEntity<Void> response = sut.addAnswer(new AddAnswerDTO(), 500L, user);
@@ -93,27 +83,20 @@ class AnswerControllerIT {
         User userForQuestion = registeredUserCreator.registerNewUserWith("userForQuestion");
         User userForAnswer = registeredUserCreator.registerNewUserWith("userForAnswer");
         User userForVote = registeredUserCreator.registerNewUserWith("userForVote");
-        AnswerController sut = new AnswerController(answerService);
 
-        QuestionController questionController = new QuestionController(questionService);
-        String category = "cat";
         String content = "content";
-
-        AddQuestionDTO addQuestionDTO = new AddQuestionDTO();
-        addQuestionDTO.setCategory(category);
-        addQuestionDTO.setContent(content);
-        Long qId = questionController.addQuestion(addQuestionDTO, userForQuestion).getBody();
+        Long qId = questionUtil.addNewQuestionBy(userForQuestion);
 
         AddAnswerDTO request = new AddAnswerDTO();
         request.setContent(content);
         sut.addAnswer(request, qId, userForAnswer);
-        Long answerId = questionController.fullQuestion(qId).getBody().getAnswers().get(0).getId();
+        Long answerId = questionUtil.getAnswerIdFor(qId);
 
         // when
         ResponseEntity<Void> result = sut.addPositiveVote("anyQId", answerId, userForVote);
         // then
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
-        AnswersWithCommentsDTO answer = questionController.fullQuestion(qId).getBody().getAnswers().get(0);
+        AnswersWithCommentsDTO answer = questionUtil.getFirstAnswerFor(qId);
         assertEquals(1L, answer.getRating());
     }
 
@@ -121,7 +104,6 @@ class AnswerControllerIT {
     void shouldReturn400_WhenAnswerForPositiveDoesNotExist(){
         // given
         User user = registeredUserCreator.registerNewUserWith("any");
-        AnswerController sut = new AnswerController(answerService);
 
         // when
         ResponseEntity<Void> response = sut.addPositiveVote("anything", 500L, user);
@@ -136,27 +118,21 @@ class AnswerControllerIT {
         User userForQuestion = registeredUserCreator.registerNewUserWith("userForQuestion");
         User userForAnswer = registeredUserCreator.registerNewUserWith("userForAnswer");
         User userForVote = registeredUserCreator.registerNewUserWith("userForVote");
-        AnswerController sut = new AnswerController(answerService);
 
-        QuestionController questionController = new QuestionController(questionService);
-        String category = "cat";
         String content = "content";
-
-        AddQuestionDTO addQuestionDTO = new AddQuestionDTO();
-        addQuestionDTO.setCategory(category);
-        addQuestionDTO.setContent(content);
-        Long qId = questionController.addQuestion(addQuestionDTO, userForQuestion).getBody();
+        Long qId = questionUtil.addNewQuestionBy(userForQuestion);
 
         AddAnswerDTO request = new AddAnswerDTO();
         request.setContent(content);
         sut.addAnswer(request, qId, userForAnswer);
-        Long answerId = questionController.fullQuestion(qId).getBody().getAnswers().get(0).getId();
+        Long answerId = questionUtil.getAnswerIdFor(qId);
 
         // when
         ResponseEntity<Void> result = sut.addNegativeVote("anyQId", answerId, userForVote);
+
         // then
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
-        AnswersWithCommentsDTO answer = questionController.fullQuestion(qId).getBody().getAnswers().get(0);
+        AnswersWithCommentsDTO answer = questionUtil.getFirstAnswerFor(qId);
         assertEquals(-1L, answer.getRating());
     }
 
@@ -164,7 +140,6 @@ class AnswerControllerIT {
     void shouldReturn400_WhenAnswerForNegativeDoesNotExist(){
         // given
         User user = registeredUserCreator.registerNewUserWith("any");
-        AnswerController sut = new AnswerController(answerService);
 
         // when
         ResponseEntity<Void> response = sut.addNegativeVote("anything", 500L, user);
