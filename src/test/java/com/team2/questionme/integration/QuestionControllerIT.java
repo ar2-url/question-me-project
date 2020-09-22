@@ -10,6 +10,7 @@ import com.team2.questionme.model.User;
 import com.team2.questionme.repository.UserRepository;
 import com.team2.questionme.service.QuestionService;
 import com.team2.questionme.service.RegisterUserService;
+import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,11 +21,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.transaction.Transactional;
-
 import java.time.LocalDate;
-import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @Transactional
@@ -35,8 +35,6 @@ class QuestionControllerIT {
 
     @Autowired
     private RegisterUserService registerUserService;
-    @Autowired
-    private UserRepository userRepository;
     @Qualifier("customUserDetailsService")
     @Autowired
     private UserDetailsService userDetailsService;
@@ -79,5 +77,18 @@ class QuestionControllerIT {
         UserDTO user = question.getUser();
         assertEquals(((User) userDetails).getId(), user.getId());
         assertEquals(((User) userDetails).getDisplayName(), user.getDisplayName());
+        assertThat(question.getAnswers(), IsEmptyCollection.empty());
+    }
+
+    @Test
+    void shouldReturn404_WhenQuestionDoesNotExist(){
+        // given
+        QuestionController sut = new QuestionController(questionService);
+
+        // when
+        ResponseEntity<QuestionWithAnswersAndCommentsDTO> questionResponse = sut.fullQuestion(500L);
+
+        // then
+        assertEquals(HttpStatus.NOT_FOUND, questionResponse.getStatusCode());
     }
 }
