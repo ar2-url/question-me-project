@@ -28,6 +28,7 @@ class UserControllerIT {
 
     @Test
     void shouldRegisterNewUser_WhenAllInformationProvidedAndUnique() {
+        // given
         UserController sut = new UserController(registerUserService);
         RegisterNewUserDTO dto = new RegisterNewUserDTO();
         String userName = "userName";
@@ -39,8 +40,10 @@ class UserControllerIT {
         dto.setEmail(email);
         dto.setPassword(password);
 
+        // when
         ResponseEntity<Void> result = sut.register(dto);
 
+        //then
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
         Optional<User> userOptional = userRepository.findByName(userName);
         assertTrue(userOptional.isPresent());

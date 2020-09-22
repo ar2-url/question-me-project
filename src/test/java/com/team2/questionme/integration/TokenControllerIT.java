@@ -1,12 +1,11 @@
 package com.team2.questionme.integration;
 
 import com.team2.questionme.controller.TokenController;
-import com.team2.questionme.controller.UserController;
 import com.team2.questionme.dto.AuthenticationRequest;
-import com.team2.questionme.dto.RegisterNewUserDTO;
+import com.team2.questionme.integration.util.RegisteredUserUtil;
+import com.team2.questionme.model.User;
 import com.team2.questionme.repository.UserRepository;
 import com.team2.questionme.security.JwtTokenProviderImpl;
-import com.team2.questionme.service.RegisterUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +15,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 
 import javax.transaction.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 @Transactional
@@ -30,28 +30,23 @@ class TokenControllerIT {
     private UserRepository users;
 
     @Autowired
-    RegisterUserService registerUserService;
+    private RegisteredUserUtil registeredUserCreator;
 
     @Test
     void shouldReturnToken_WhenUserIsRegistered() {
-        UserController userController = new UserController(registerUserService);
-        RegisterNewUserDTO dto = new RegisterNewUserDTO();
-        String userName = "userName";
-        String displayName = "displayName";
-        String email = "email@test.com";
-        String password = "secure";
-        dto.setName(userName);
-        dto.setDisplayName(displayName);
-        dto.setEmail(email);
-        dto.setPassword(password);
-        userController.register(dto);
+        // given
         TokenController sut = new TokenController(authenticationManager, jwtTokenProvider, users);
+        String username = "Carolina";
+        String pass = "us state";
+        registeredUserCreator.registerNewUserWith(username, pass);
         AuthenticationRequest request = new AuthenticationRequest();
-        request.setUsername(userName);
-        request.setPassword(password);
+        request.setUsername(username);
+        request.setPassword(pass);
 
+        // when
         ResponseEntity<String> result = sut.signin(request);
 
+        // then
         assertEquals(HttpStatus.OK, result.getStatusCode());
         assertFalse(result.getBody().isEmpty());
     }
