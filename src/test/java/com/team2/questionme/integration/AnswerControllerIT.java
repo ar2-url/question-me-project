@@ -5,6 +5,7 @@ import com.team2.questionme.controller.QuestionController;
 import com.team2.questionme.dto.AddAnswerDTO;
 import com.team2.questionme.dto.AnswersWithCommentsDTO;
 import com.team2.questionme.dto.QuestionWithAnswersAndCommentsDTO;
+import com.team2.questionme.integration.util.IdsDto;
 import com.team2.questionme.integration.util.QuestionUtil;
 import com.team2.questionme.integration.util.RegisteredUserUtil;
 import com.team2.questionme.model.User;
@@ -84,19 +85,13 @@ class AnswerControllerIT {
         User userForAnswer = registeredUserCreator.registerNewUserWith("userForAnswer");
         User userForVote = registeredUserCreator.registerNewUserWith("userForVote");
 
-        String content = "content";
-        Long qId = questionUtil.addNewQuestionBy(userForQuestion);
-
-        AddAnswerDTO request = new AddAnswerDTO();
-        request.setContent(content);
-        sut.addAnswer(request, qId, userForAnswer);
-        Long answerId = questionUtil.getAnswerIdFor(qId);
+        IdsDto idsDto = questionUtil.addNewQuestionWithAnswer(userForQuestion, userForAnswer);
 
         // when
-        ResponseEntity<Void> result = sut.addPositiveVote("anyQId", answerId, userForVote);
+        ResponseEntity<Void> result = sut.addPositiveVote(idsDto.getQuestionId().toString(), idsDto.getAnswerId(), userForVote);
         // then
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
-        AnswersWithCommentsDTO answer = questionUtil.getFirstAnswerFor(qId);
+        AnswersWithCommentsDTO answer = questionUtil.getFirstAnswerFor(idsDto.getQuestionId());
         assertEquals(1L, answer.getRating());
     }
 
@@ -119,20 +114,14 @@ class AnswerControllerIT {
         User userForAnswer = registeredUserCreator.registerNewUserWith("userForAnswer");
         User userForVote = registeredUserCreator.registerNewUserWith("userForVote");
 
-        String content = "content";
-        Long qId = questionUtil.addNewQuestionBy(userForQuestion);
-
-        AddAnswerDTO request = new AddAnswerDTO();
-        request.setContent(content);
-        sut.addAnswer(request, qId, userForAnswer);
-        Long answerId = questionUtil.getAnswerIdFor(qId);
+        IdsDto idsDto = questionUtil.addNewQuestionWithAnswer(userForQuestion, userForAnswer);
 
         // when
-        ResponseEntity<Void> result = sut.addNegativeVote("anyQId", answerId, userForVote);
+        ResponseEntity<Void> result = sut.addNegativeVote(idsDto.getQuestionId().toString(), idsDto.getAnswerId(), userForVote);
 
         // then
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
-        AnswersWithCommentsDTO answer = questionUtil.getFirstAnswerFor(qId);
+        AnswersWithCommentsDTO answer = questionUtil.getFirstAnswerFor(idsDto.getQuestionId());
         assertEquals(-1L, answer.getRating());
     }
 

@@ -1,6 +1,8 @@
 package com.team2.questionme.integration.util;
 
+import com.team2.questionme.controller.AnswerController;
 import com.team2.questionme.controller.QuestionController;
+import com.team2.questionme.dto.AddAnswerDTO;
 import com.team2.questionme.dto.AddQuestionDTO;
 import com.team2.questionme.dto.AnswersWithCommentsDTO;
 import com.team2.questionme.model.Answer;
@@ -13,6 +15,8 @@ public class QuestionUtil {
 
     @Autowired
     private QuestionController questionController;
+    @Autowired
+    private AnswerController answerController;
 
     public Long addNewQuestionBy(User userForQuestion) {
         String category = "cat";
@@ -31,5 +35,21 @@ public class QuestionUtil {
 
     public AnswersWithCommentsDTO getFirstAnswerFor(Long questionId) {
         return questionController.fullQuestion(questionId).getBody().getAnswers().get(0);
+    }
+
+    public IdsDto addNewQuestionWithAnswer(User userForQuestion, User userForAnswer) {
+        Long qId = addNewQuestionBy(userForQuestion);
+
+        String content = "content";
+        AddAnswerDTO addAnswerDTO = new AddAnswerDTO();
+        addAnswerDTO.setContent(content);
+        answerController.addAnswer(addAnswerDTO, qId, userForAnswer);
+        Long answerId = getAnswerIdFor(qId);
+
+        IdsDto result = new IdsDto();
+        result.setAnswerId(answerId);
+        result.setQuestionId(qId);
+
+        return result;
     }
 }
