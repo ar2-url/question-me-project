@@ -44,7 +44,7 @@ class AnswerControllerIT {
         User userForAnswer = registeredUserCreator.registerNewUserWith("username");
         String content = "content";
 
-        Long qId = questionUtil.addNewQuestionBy(userForQuestion);
+        Long qId = questionUtil.addNewQuestion(userForQuestion);
 
         AddAnswerDTO request = new AddAnswerDTO();
         request.setContent(content);
