@@ -1,12 +1,10 @@
 package com.team2.questionme.integration;
 
 import com.team2.questionme.controller.AnswerController;
+import com.team2.questionme.controller.CommentController;
 import com.team2.questionme.controller.HistoryController;
 import com.team2.questionme.controller.QuestionController;
-import com.team2.questionme.dto.AddAnswerDTO;
-import com.team2.questionme.dto.AddQuestionDTO;
-import com.team2.questionme.dto.AnswerHistoryDTO;
-import com.team2.questionme.dto.QuestionHistoryDTO;
+import com.team2.questionme.dto.*;
 import com.team2.questionme.integration.util.IdsDto;
 import com.team2.questionme.integration.util.QuestionUtil;
 import com.team2.questionme.integration.util.RegisteredUserUtil;
@@ -39,6 +37,8 @@ class HistoryControllerIT {
     private QuestionController questionController;
     @Autowired
     private AnswerController answerController;
+    @Autowired
+    private CommentController commentController;
 
     @Test
     void shouldReturnAllQuestionAskedByUser_WhenThereAreQuestionsFromMultipleUsers(){
@@ -110,9 +110,9 @@ class HistoryControllerIT {
         answerController.addAnswer(anyAnswer, idsDto2.getQuestionId(), otherUser1);
 
         IdsDto idsDto3 = questionUtil.addNewQuestionWithAnswer(otherUser2, user);
-        answerController.addAnswer(anyAnswer, idsDto1.getQuestionId(), user);
-        answerController.addAnswer(anyAnswer, idsDto1.getQuestionId(), otherUser1);
-        answerController.addAnswer(anyAnswer, idsDto1.getQuestionId(), otherUser2);
+        answerController.addAnswer(anyAnswer, idsDto3.getQuestionId(), user);
+        answerController.addAnswer(anyAnswer, idsDto3.getQuestionId(), otherUser1);
+        answerController.addAnswer(anyAnswer, idsDto3.getQuestionId(), otherUser2);
 
         // when
         ResponseEntity<List<AnswerHistoryDTO>> result = sut.answersHistory(user);
@@ -144,6 +144,65 @@ class HistoryControllerIT {
         assertEquals(qId, historyItem.getQuestionId());
         assertEquals(LocalDate.now(), historyItem.getLocalDate());
         assertEquals(0L, historyItem.getRating());
+        assertEquals(content, historyItem.getContents());
+    }
+
+    @Test
+    void shouldReturnAllCommentsByUser_WhenThereAreCommentsFromMultipleUsers(){
+        // given
+        User user = registeredUserCreator.registerNewUserWith("user1");
+        User otherUser1 = registeredUserCreator.registerNewUserWith("user2");
+        User otherUser2 = registeredUserCreator.registerNewUserWith("user3");
+
+        AddCommentDTO anyComment = new AddCommentDTO();
+        anyComment.setContent("anything");
+
+        IdsDto idsDto1 = questionUtil.addNewQuestionWithAnswer(user, otherUser1);
+        commentController.addComment(anyComment, idsDto1.getQuestionId(), idsDto1.getAnswerId(), user);
+        commentController.addComment(anyComment, idsDto1.getQuestionId(), idsDto1.getAnswerId(), otherUser1);
+        commentController.addComment(anyComment, idsDto1.getQuestionId(), idsDto1.getAnswerId(), otherUser2);
+        commentController.addComment(anyComment, idsDto1.getQuestionId(), idsDto1.getAnswerId(), user);
+
+
+        IdsDto idsDto2 = questionUtil.addNewQuestionWithAnswer(otherUser1, otherUser2);
+        commentController.addComment(anyComment, idsDto2.getQuestionId(), idsDto1.getAnswerId(), user);
+        commentController.addComment(anyComment, idsDto2.getQuestionId(), idsDto1.getAnswerId(), otherUser1);
+
+        IdsDto idsDto3 = questionUtil.addNewQuestionWithAnswer(otherUser2, user);
+        commentController.addComment(anyComment, idsDto3.getQuestionId(), idsDto1.getAnswerId(), user);
+        commentController.addComment(anyComment, idsDto3.getQuestionId(), idsDto1.getAnswerId(), otherUser1);
+        commentController.addComment(anyComment, idsDto3.getQuestionId(), idsDto1.getAnswerId(), otherUser2);
+
+        // when
+        ResponseEntity<List<CommentHistoryDTO>> result = sut.commentsHistory(user);
+
+        // then
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        List<CommentHistoryDTO> history = result.getBody();
+        assertThat(history, hasSize(4));
+    }
+
+    @Test
+    void shouldReturnCorrectHistoryDetails_WhenThereAreCommentsFromMultipleUsers(){
+        // given
+        User user = registeredUserCreator.registerNewUserWith("user1");
+        User otherUser1 = registeredUserCreator.registerNewUserWith("user2");
+
+        String content = "content";
+        AddCommentDTO anyComment = new AddCommentDTO();
+        anyComment.setContent(content);
+
+        IdsDto idsDto1 = questionUtil.addNewQuestionWithAnswer(user, otherUser1);
+        commentController.addComment(anyComment, idsDto1.getQuestionId(), idsDto1.getAnswerId(), user);
+
+        // when
+        ResponseEntity<List<CommentHistoryDTO>> result = sut.commentsHistory(user);
+
+        // then
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        CommentHistoryDTO historyItem = result.getBody().get(0);
+        assertEquals(idsDto1.getQuestionId(), historyItem.getQuestionId());
+        assertEquals(LocalDate.now(), historyItem.getLocalDate());
         assertEquals(content, historyItem.getContents());
     }
 }
