@@ -26,10 +26,10 @@ public class QuestionServiceImpl implements QuestionService{
         this.userRepository = userRepository;
     }
 
-    public void addQuestion(AddQuestionDTO addQuestionDTO, UserDetails userDetails){
+    public Long addQuestion(AddQuestionDTO addQuestionDTO, UserDetails userDetails){
         User user = userRepository.findByName(userDetails.getUsername()).get();
         Question question = new Question(user,addQuestionDTO.getContent(),addQuestionDTO.getCategory());
-        questionRepository.save(question);
+        return questionRepository.save(question).getId();
     }
 
     public Page<QuestionDTO> getFor(String category, Pageable pageable) {

@@ -82,4 +82,12 @@ public class User implements UserDetails {
     public List<String> getRoles() {
         return new ArrayList<>();
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
 }

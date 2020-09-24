@@ -45,8 +45,8 @@ public class CategoryController {
                             "Default sort order is ascending. " +
                             "Multiple sort criteria are supported.")})
     
-    public ResponseEntity<Page<QuestionDTO>> getQuestionsFor(@PathVariable String category, Pageable pagable) {
-        Page<QuestionDTO> all = questionService.getFor(category, pagable);
+    public ResponseEntity<Page<QuestionDTO>> getQuestionsFor(@PathVariable String category, Pageable pageable) {
+        Page<QuestionDTO> all = questionService.getFor(category, pageable);
         return new ResponseEntity(all, HttpStatus.OK);
     }
 }

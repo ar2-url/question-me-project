@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface QuestionService {
 
-    void addQuestion(AddQuestionDTO addQuestionDTO, UserDetails userDetails);
+    Long addQuestion(AddQuestionDTO addQuestionDTO, UserDetails userDetails);
 
     Page<QuestionDTO> getFor(String category, Pageable pageable);
 

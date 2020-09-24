@@ -43,6 +43,7 @@ public class HistoryController {
         List<AnswerHistoryDTO> a = answerService.getAllAnswersForUser(userDetails);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
+
     @GetMapping("/comments")
     public ResponseEntity<List<CommentHistoryDTO>> commentsHistory(
             @AuthenticationPrincipal UserDetails userDetails) {
