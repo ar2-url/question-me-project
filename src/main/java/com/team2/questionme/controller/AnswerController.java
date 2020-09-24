@@ -11,6 +11,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/questions")
 public class AnswerController {
@@ -26,7 +28,7 @@ public class AnswerController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses(value = {@ApiResponse(code = 400, message = "No question with such Id"),
             @ApiResponse(code = 201, message = "Created")})
-    public ResponseEntity<Void> addAnswer(@RequestBody AddAnswerDTO addAnswerDTO,
+    public ResponseEntity<Void> addAnswer(@Valid @RequestBody AddAnswerDTO addAnswerDTO,
                                           @PathVariable Long questionId,
                                           @AuthenticationPrincipal UserDetails userDetails) {
 

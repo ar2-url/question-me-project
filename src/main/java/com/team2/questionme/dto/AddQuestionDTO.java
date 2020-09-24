@@ -1,9 +1,17 @@
 package com.team2.questionme.dto;
 
-public class AddQuestionDTO {
-    private String content;
-    private String category;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+public class AddQuestionDTO {
+
+    @NotBlank
+    @Size(max = 50000, message = "Message too long! You can send up to 50000 characters")
+    private String content;
+
+    @NotBlank
+    @Size(max = 50, message = "Message too long! You can send up to 50 characters")
+    private String category;
 
     public AddQuestionDTO() {
     }

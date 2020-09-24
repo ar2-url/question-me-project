@@ -12,6 +12,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/questions")
 public class CommentController {
@@ -28,7 +30,7 @@ public class CommentController {
     @ApiResponses(value = {@ApiResponse(code = 400, message = "No comment with such Id"),
             @ApiResponse(code = 201, message = "Created")})
     public ResponseEntity<Void> addComment(
-            @RequestBody AddCommentDTO addCommentDTO,
+            @Valid @RequestBody AddCommentDTO addCommentDTO,
             @PathVariable Long questionId,
             @PathVariable Long answerId,
             @AuthenticationPrincipal UserDetails userDetails) {

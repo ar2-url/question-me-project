@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -28,7 +29,7 @@ public class QuestionController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Long> addQuestion(
-            @RequestBody AddQuestionDTO addQuestionDTO,
+            @Valid @RequestBody AddQuestionDTO addQuestionDTO,
             @AuthenticationPrincipal UserDetails userDetails) {
         Long qId = questionService.addQuestion(addQuestionDTO, userDetails);
         return new ResponseEntity(qId, HttpStatus.CREATED);
