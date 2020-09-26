@@ -27,7 +27,7 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     public Long addQuestion(AddQuestionDTO addQuestionDTO, UserDetails userDetails){
-        User user = userRepository.findByName(userDetails.getUsername()).get();
+        User user = (User)userDetails;
         Question question = new Question(user,addQuestionDTO.getContent(),addQuestionDTO.getCategory());
         return questionRepository.save(question).getId();
     }
