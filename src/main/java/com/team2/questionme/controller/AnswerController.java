@@ -31,8 +31,8 @@ public class AnswerController {
                                           @AuthenticationPrincipal UserDetails userDetails) {
 
         boolean success = answerService.addAnswer(addAnswerDTO, questionId, userDetails);
-        if (success == true) {
-            return new ResponseEntity(HttpStatus.CREATED);
+        if (success) {
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
         return new ResponseEntity("No question with such Id", HttpStatus.BAD_REQUEST);
     }
@@ -47,8 +47,8 @@ public class AnswerController {
             @AuthenticationPrincipal UserDetails userDetails) {
 
         boolean success = answerService.addPositiveVote(answerId, userDetails);
-        if (success == true) {
-            return new ResponseEntity(HttpStatus.CREATED);
+        if (success) {
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
         return new ResponseEntity("No answer with such Id", HttpStatus.BAD_REQUEST);
     }
@@ -63,8 +63,8 @@ public class AnswerController {
             @AuthenticationPrincipal UserDetails userDetails) {
 
         boolean success = answerService.addNegativeVote(answerId, userDetails);
-        if (success == true) {
-            return new ResponseEntity(HttpStatus.CREATED);
+        if (success) {
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
         return new ResponseEntity("No answer with such Id", HttpStatus.BAD_REQUEST);
     }

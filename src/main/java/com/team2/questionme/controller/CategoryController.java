@@ -31,7 +31,7 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<List<String>> getCategories() {
         List<String> all = categoryService.getAll();
-        return new ResponseEntity(all, HttpStatus.OK);
+        return new ResponseEntity<>(all, HttpStatus.OK);
     }
 
     @GetMapping("{category}/questions")
@@ -47,7 +47,7 @@ public class CategoryController {
     
     public ResponseEntity<Page<QuestionDTO>> getQuestionsFor(@PathVariable String category, Pageable pageable) {
         Page<QuestionDTO> all = questionService.getFor(category, pageable);
-        return new ResponseEntity(all, HttpStatus.OK);
+        return new ResponseEntity<>(all, HttpStatus.OK);
     }
 }
 

@@ -4,10 +4,6 @@ public class AddQuestionDTO {
     private String content;
     private String category;
 
-
-    public AddQuestionDTO() {
-    }
-
     public String getContent() {
         return content;
     }

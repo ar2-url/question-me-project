@@ -1,6 +1,5 @@
 package com.team2.questionme.repository;
 
-import com.team2.questionme.dto.AnswerHistoryDTO;
 import com.team2.questionme.dto.CommentHistoryDTO;
 import com.team2.questionme.model.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;

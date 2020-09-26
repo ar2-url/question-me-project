@@ -31,7 +31,7 @@ public class QuestionController {
             @RequestBody AddQuestionDTO addQuestionDTO,
             @AuthenticationPrincipal UserDetails userDetails) {
         Long qId = questionService.addQuestion(addQuestionDTO, userDetails);
-        return new ResponseEntity(qId, HttpStatus.CREATED);
+        return new ResponseEntity<>(qId, HttpStatus.CREATED);
     }
 
     @GetMapping("{questionId}")
@@ -39,8 +39,8 @@ public class QuestionController {
     public ResponseEntity<QuestionWithAnswersAndCommentsDTO> fullQuestion(
             @PathVariable Long questionId) {
         Optional<QuestionWithAnswersAndCommentsDTO> q = questionService.getById(questionId);
-        if(q.isPresent() == false){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        if(!q.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(q.get(), HttpStatus.OK);
     }

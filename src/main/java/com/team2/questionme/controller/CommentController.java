@@ -34,8 +34,8 @@ public class CommentController {
             @AuthenticationPrincipal UserDetails userDetails) {
 
         boolean success = commentService.addComment(addCommentDTO, answerId, userDetails);
-        if (success == true) {
-            return new ResponseEntity(HttpStatus.CREATED);
+        if (success) {
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
         return new ResponseEntity("No comment with such Id", HttpStatus.BAD_REQUEST);
     }

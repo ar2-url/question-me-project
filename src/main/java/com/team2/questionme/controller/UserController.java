@@ -22,6 +22,6 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Void> register(@RequestBody RegisterNewUserDTO registerNewUserDTO) {
         registerUserService.registerNewUser(registerNewUserDTO);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

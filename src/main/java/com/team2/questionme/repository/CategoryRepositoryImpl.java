@@ -25,8 +25,7 @@ public class CategoryRepositoryImpl implements CategoryRepository{
         CriteriaQuery<String> query = builder.createQuery(String.class);
         Root<Question> questionRoot = query.from(Question.class);
         query.select(builder.lower(questionRoot.get(Question_.category))).distinct(true);
-        List<String> resultList = entityManager.createQuery(query).getResultList();
 
-        return resultList;
+        return entityManager.createQuery(query).getResultList();
     }
 }
