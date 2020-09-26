@@ -7,7 +7,6 @@ import com.team2.questionme.model.Comment;
 import com.team2.questionme.model.User;
 import com.team2.questionme.repository.AnswerRepository;
 import com.team2.questionme.repository.CommentRepository;
-import com.team2.questionme.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -18,19 +17,17 @@ import java.util.Optional;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    private UserRepository userRepository;
     private AnswerRepository answerRepository;
     private CommentRepository commentRepository;
 
     @Autowired
-    public CommentServiceImpl(UserRepository userRepository, AnswerRepository answerRepository, CommentRepository commentRepository) {
-        this.userRepository = userRepository;
+    public CommentServiceImpl(AnswerRepository answerRepository, CommentRepository commentRepository) {
         this.answerRepository = answerRepository;
         this.commentRepository = commentRepository;
     }
 
     public boolean addComment(AddCommentDTO addCommentDTO, Long answerId, UserDetails userDetails) {
-        User user = userRepository.findByName(userDetails.getUsername()).get();
+        User user = (User)userDetails;
         Comment comment = new Comment(user, addCommentDTO.getContent());
         Optional<Answer> answerOp = answerRepository.findById(answerId);
         if (answerOp.isPresent()) {
@@ -43,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     public List<CommentHistoryDTO> getAllCommentsForUser(UserDetails userDetails) {
-        User user = userRepository.findByName(userDetails.getUsername()).get();
+        User user = (User)userDetails;
         return commentRepository.findCommentsForUser(user.getId());
     }
 }
