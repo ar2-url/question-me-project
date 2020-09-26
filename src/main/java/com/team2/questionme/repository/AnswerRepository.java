@@ -10,15 +10,6 @@ import java.util.List;
 
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
-    String GET_ANSWERS_FOR_USER = "SELECT a.id as answerId, a.local_date as localDate, a.rating as rating, a.contents as contents, q.id as questionId " +
-            " FROM answer as a\n" +
-            "join question_answers as qa\n" +
-            "on a.id = qa.answers_id\n" +
-            "join question as q \n" +
-            "on q.id = qa.question_id where a.user_id = ?1\n" +
-            "order by a.id desc";
-
-    @Query(value = GET_ANSWERS_FOR_USER, nativeQuery = true)
+    @Query(value = Queries.GET_ANSWERS_FOR_USER, nativeQuery = true)
     List<AnswerHistoryDTO> findAnswersForUser(Long userId);
-
 }
