@@ -42,6 +42,14 @@ public class Answer {
         return rating;
     }
 
+    public String getContents() {
+        return contents;
+    }
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
     public void addComment(Comment comment) {
         comments.add(comment);
     }

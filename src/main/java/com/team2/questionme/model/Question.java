@@ -42,4 +42,16 @@ public class Question {
     public Long getId() {
         return id;
     }
+
+    public String getContents() {
+        return contents;
+    }
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public String getCategory() {
+        return category;
+    }
 }

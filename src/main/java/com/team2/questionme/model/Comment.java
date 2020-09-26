@@ -29,4 +29,12 @@ public class Comment {
 
     protected Comment() {
     }
+
+    public String getContents() {
+        return contents;
+    }
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
 }
